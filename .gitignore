@@ -48,3 +48,6 @@ next-env.d.ts
 /src/generated/
 /playwright-report/
 /test-results/
+
+# private learning notes (D5: planning docs are public)
+/docs/process-notes.md
