@@ -1,6 +1,6 @@
 # Change 01: Next.js / React security patch
 
-Status: spec ready · Decisions: D1, D2, D3, D4, D6 · Plan included here (per D2)
+Status: spec ready · Decisions: D1, D2, D3, D4, D6, D7 · Plan included here (per D2)
 
 ## Context
 
@@ -89,7 +89,7 @@ Done by hand, not with Claude Code: a few commands, and the old CLAUDE.md still 
 4. `git checkout -b chore/security-patch-next`
 5. Upgrade only the four packages, to exact versions: `next`/`eslint-config-next` latest 16.3.x (D4), `react`/`react-dom` latest 19.2.x. Do **not** use `npm audit fix --force`.
 6. Run A1–A11. If anything differs from the baseline: stop, log it in decisions.md, and decide using the change protocol. No quiet fixes.
-7. Commit `package.json` and `package-lock.json` only:
+7. Commit `package.json`, `package-lock.json`, `next.config.ts` (D6), `.gitignore` and `docs/` together (D5, D7):
    `chore: patch next/react for CVE-2025-55184, CVE-2025-55183`
 8. Merge into `portfolio` and push. Trigger a **manual deploy** in Render. Run A12.
 9. **Rollback:** if A12 fails, redeploy the previous commit from Render's dashboard, then revert the merge on `portfolio`.

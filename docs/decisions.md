@@ -26,3 +26,9 @@ Supersedes: "Any code changes" in the Change 01 spec's Out list (for this one co
 Why: next 16.3.x (D4) makes `next dev` auto-generate AGENTS.md and CLAUDE.md in the repo root on every run. The generated CLAUDE.md would load alongside the project's own CLAUDE.md, and the files would keep reappearing as untracked changes.
 Trade-off: a config change in a change that was meant to be package-only; agents don't get Next's version-matched docs pointer (node_modules/next/dist/docs/).
 Affects: Change 01 spec scope, next.config.ts, findings.md.
+
+D7: Change 01's step 7 commit includes docs/, .gitignore and next.config.ts, not only package.json and package-lock.json.
+Supersedes: "Commit package.json and package-lock.json only" in plan step 7 of the Change 01 spec.
+Why: CLAUDE.md and D5 commit docs together with code; D6 added a config change; .gitignore keeps docs/process-notes.md out of the public repo.
+Trade-off: the security-patch commit is less minimal; reverting it also reverts the docs and the agentRules line.
+Affects: Change 01 spec, plan step 7 (already done in 6a03331; no rework needed).
