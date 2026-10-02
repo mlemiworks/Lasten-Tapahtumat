@@ -15,6 +15,7 @@ Supersedes: the scope line "within 16.0.x" in the Change 01 spec.
 Why: critical advisories have no fix in the 16.0 line; the minimum fixed version is 16.3.6.
 Trade-off: a minor-version jump with more behavior change; covered by the baseline comparison.
 Affects: spec scope, A1, plan step 5.
+→ Why and minimum version superseded by D8.
 
 D5: Working documents live in docs/ inside the repo, committed. The learning log stays outside the repo.
 Why: the change protocol commits docs with code, and visible specs and decisions show the process to recruiters.
@@ -32,3 +33,13 @@ Supersedes: "Commit package.json and package-lock.json only" in plan step 7 of t
 Why: CLAUDE.md and D5 commit docs together with code; D6 added a config change; .gitignore keeps docs/process-notes.md out of the public repo.
 Trade-off: the security-patch commit is less minimal; reverting it also reverts the docs and the agentRules line.
 Affects: Change 01 spec, plan step 7 (already done in 6a03331; no rework needed).
+
+D8: Raise the next minimum to 16.3.8 and correct D4's reasoning.
+Supersedes: D4's "Why" and its minimum version (16.3.6). D4's decision to move from 16.0 to 16.3.x still stands.
+Why: Checked against the vendor's advisories (D4 relied on a search result):
+- August 25 release, fixed in 16.3.3: two critical advisories (GHSA-2xp9-vwfh-vxw4, GHSA-p293-qw3h-jr36) affect 16.0.8 and have no 16.0.x fix. This is why the upgrade had to leave the 16.0 line.
+- September 22, GHSA-vcvr-r3jv-pc5j (critical, RCE in next/og Node.js ImageResponse): affects >=16.2.0 <16.3.6. It never affected 16.0.8, but it rules out stopping at 16.3.3–16.3.5.
+- September 30 release, fixed in 16.3.8: one high, five medium and one low advisory in 16.x. This makes 16.3.8 the lowest version with no known advisories.
+Sources: nextjs.org/blog (August and September 2026 security releases, September 22 security update).
+Trade-off: A1 now requires the latest patch release. A regression in 16.3.8 can't be solved by stepping back to 16.3.6 or 16.3.7 without a new decision, and future security releases will raise the bar again.
+Affects: spec Context (new paragraph on these advisories), A1 (>= 16.3.8), spec Status line (add D8), D4 (mark as partly superseded). No rework: 16.3.8 is already installed, and A1 and A2 still pass.

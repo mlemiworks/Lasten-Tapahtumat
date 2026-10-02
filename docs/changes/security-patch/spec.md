@@ -1,6 +1,6 @@
 # Change 01: Next.js / React security patch
 
-Status: spec ready · Decisions: D1, D2, D3, D4, D6, D7 · Plan included here (per D2)
+Status: spec ready · Decisions: D1, D2, D3, D4, D6, D7, D8 · Plan included here (per D2)
 
 ## Context
 
@@ -10,6 +10,8 @@ The `portfolio` branch, deployed to Render as the public demo, runs `next 16.0.8
 - **CVE-2025-55183:** source code exposure, medium severity. It only affects apps using Server Actions; this app appears not to, but that is unverified.
 
 Both are fixed in Next.js 16.0.10 and React 19.2.3+. (CVE-2025-66478, the critical remote-code-execution bug, is already fixed in 16.0.8.)
+
+Later advisories raise the bar (D8). Two critical advisories fixed in 16.3.3 (GHSA-2xp9-vwfh-vxw4, GHSA-p293-qw3h-jr36) affect 16.0.8 and have no 16.0.x fix, so the upgrade has to leave the 16.0 line (D4). GHSA-vcvr-r3jv-pc5j (critical, RCE in next/og, >=16.2.0 <16.3.6) rules out 16.3.3–16.3.5, and the September 30 release fixes one high, five medium and one low advisory in 16.3.8, the lowest version with no known advisories. Sources: nextjs.org/blog (August and September 2026 security releases, September 22 security update).
 
 Reference: https://vercel.com/kb/bulletin/security-bulletin-cve-2025-55184-and-cve-2025-55183
 
@@ -50,7 +52,7 @@ Who is affected: anyone using the demo, including recruiters. A hung server mean
 
 | #   | Criterion                                                                                                                                                                 | How verified                                                       |
 | --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
-| A1  | `next` >= 16.3.6 (16.3.x) (D4); `react` and `react-dom` >= 19.2.3 (19.2.x) installed                                                                                      | `npm list next react react-dom`                                    |
+| A1  | `next` >= 16.3.8 (16.3.x) (D4, D8); `react` and `react-dom` >= 19.2.3 (19.2.x) installed                                                                                      | `npm list next react react-dom`                                    |
 | A2  | No Next.js or React advisories remain                                                                                                                                     | `npm audit` (other findings logged, not fixed)                     |
 | A3  | Build and type check pass; the lint problem count is not higher than the baseline (3021 problems, 190 errors) (D3)                                                        | `npm run build`, `npx eslint . --ignore-pattern "src/generated/**"`, `npx tsc --noEmit` |
 | A4  | Front page: events listed; search by word works; city filter works; category pills filter; pagination moves between pages                                                 | Manual, logged out                                                 |
