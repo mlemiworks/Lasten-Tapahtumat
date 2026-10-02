@@ -3,6 +3,7 @@
 ## Change 01: security patch (`docs/changes/security-patch/`)
 
 Branch: `chore/security-patch-next`
+Decisions: `docs/changes/security-patch/decisions.md` (project-wide: `docs/decisions.md`, D10).
 
 ### Done
 
