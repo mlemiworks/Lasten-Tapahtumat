@@ -71,15 +71,15 @@ Who is affected: anyone using the demo, including recruiters. A hung server mean
 
 | #   | Before | After | Notes                                                                                                  |
 | --- | ------ | ----- | ------------------------------------------------------------------------------------------------------ |
-| A3  | Pass\* | Diff\* | After: build and tsc pass; lint 3022 problems (190 errors, 2832 warnings), one warning above the baseline. Deferred, see findings.md (D3, D4). Before: 3021 problems (190 errors, 2831 warnings), command npx eslint . --ignore-pattern "src/generated/\*\*". |
-| A4  | Pass   |       |                                                                                                        |
-| A5  | Pass   |       |                                                                                                        |
-| A6  | Pass   |       | Upload OK; refresh bug not seen this run (intermittent)                                                |
-| A7  | Pass   |       |                                                                                                        |
-| A8  | Pass   |       | Non-owner → 403                                                                                        |
-| A9  | Pass   |       |                                                                                                        |
+| A3  | Pass\* | Pass\* | After: build and tsc pass; lint 3022 problems (190 errors, 2832 warnings), one warning above the baseline, accepted (D9). Before: 3021 problems (190 errors, 2831 warnings), command npx eslint . --ignore-pattern "src/generated/\*\*". |
+| A4  | Pass   | Pass  |                                                                                                        |
+| A5  | Pass   | Pass  | After: uploaded image checked during A6 (the A10 reset removed uploaded events).                     |
+| A6  | Pass   | Pass  | Upload OK; refresh bug not seen this run (intermittent)                                                |
+| A7  | Pass   | Pass  |                                                                                                        |
+| A8  | Pass   | Pass  | Non-owner → 403 (PUT and DELETE)                                                                                     |
+| A9  | Pass   | Pass  |                                                                                                        |
 | A10 | Pass   | Pass  | Correct token 200, wrong token 401                                                                     |
-| A11 | Pass   |       | Known noise only: middleware warning, WeatherForecast console.log                                      |
+| A11 | Pass   | Pass  | Known noise only: middleware warning, WeatherForecast console.log. After: plus the stray-lockfile warning (findings.md)                                |
 
 ## Plan
 
