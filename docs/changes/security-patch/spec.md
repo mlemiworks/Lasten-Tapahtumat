@@ -1,6 +1,6 @@
 # Change 01: Next.js / React security patch
 
-Status: spec ready · Decisions: D1 (`docs/decisions.md`); D2, D3, D4, D6, D7, D8, D9 (`decisions.md` in this folder) · Plan included here (per D2)
+Status: done · Decisions: D1 (`docs/decisions.md`); D2, D3, D4, D6, D7, D8, D9 (`decisions.md` in this folder) · Plan included here (per D2)
 
 ## Context
 
@@ -33,7 +33,7 @@ Who is affected: anyone using the demo, including recruiters. A hung server mean
 
 ## Must not change
 
-- Project-wide items, see "Must not change (project-wide)" in codebase-map.md: `/api/reset`, the `x-reset-token` check, the GitHub Actions reset (6-hour schedule, `APP_URL` and `RESET_TOKEN` secrets).
+- Project-wide items, see "Must not change" in `docs/spec.md`: `/api/reset`, the `x-reset-token` check, the GitHub Actions reset (6-hour schedule, `APP_URL` and `RESET_TOKEN` secrets).
 - All user flows and authorization rules (see the acceptance criteria).
 
 ## Risks
@@ -79,7 +79,7 @@ Who is affected: anyone using the demo, including recruiters. A hung server mean
 | A8  | Pass   | Pass  | Non-owner → 403 (PUT and DELETE)                                                                                     |
 | A9  | Pass   | Pass  |                                                                                                        |
 | A10 | Pass   | Pass  | Correct token 200, wrong token 401                                                                     |
-| A11 | Pass   | Pass  | Known noise only: middleware warning, WeatherForecast console.log. After: plus the stray-lockfile warning (findings.md)                                |
+| A11 | Pass   | Pass  | Known noise only: middleware warning, WeatherForecast console.log. After: plus a local stray-lockfile warning (dismissed)                                |
 
 ## Plan
 

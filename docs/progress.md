@@ -1,6 +1,6 @@
 # Progress
 
-## Change 01: security patch (`docs/changes/security-patch/`)
+## Change 01: security patch (`docs/changes/security-patch/`): complete
 
 Branch: `chore/security-patch-next`
 Decisions: `docs/changes/security-patch/decisions.md` (project-wide: `docs/decisions.md`, D10).
@@ -14,12 +14,12 @@ Decisions: `docs/changes/security-patch/decisions.md` (project-wide: `docs/decis
   - A2: no next/react advisories; 18 others remain (step 10). Portfolio's lockfile had 23, including next (critical).
   - A3: build and tsc pass; lint at 3022, one warning above the baseline, accepted (D9).
   - A4–A9: manual. A5's uploaded image was checked during A6.
-  - A11: known noise only, plus the stray-lockfile warning (findings.md).
+  - A11: known noise only, plus a local stray-lockfile warning (dismissed).
 - Additional fix (D6): `agentRules: false` in next.config.ts; build, tsc and dev re-checked afterwards.
 - `docs/process-notes.md` added to .gitignore (D5: docs are public).
 - Step 7: committed (D7).
+- Step 8: merged into portfolio, manual Render deploy, A12 pass on the live URL.
+- Step 9: rollback not needed.
+- Step 10: remaining `npm audit` advisories logged in findings.md.
 
 ### Next
-
-- Step 8: merge into `portfolio`, push, manual Render deploy, A12.
-- Step 10: log the remaining `npm audit` findings in findings.md.

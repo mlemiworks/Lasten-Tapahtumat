@@ -24,3 +24,5 @@
 - if reset token for both prod and dev is same, leaked dev token may be used to reset prod
 
 - consider Dependabot or a similar tool for security update alerts.
+
+- npm audit after Change 01 (next 16.3.8, react 19.2.8): 18 advisories remain, none in next/react (1 critical, 10 high, 5 moderate, 2 low). Top-level packages they come through: prisma/@prisma/client, next-auth, eslint, eslint-config-next, tsx, @supabase/supabase-js. Review in a separate change.
