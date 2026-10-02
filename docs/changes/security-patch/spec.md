@@ -1,6 +1,6 @@
 # Change 01: Next.js / React security patch
 
-Status: spec ready · Decisions: D1, D2, D3, D4, D6, D7, D8 · Plan included here (per D2)
+Status: spec ready · Decisions: D1, D2, D3, D4, D6, D7, D8, D9 · Plan included here (per D2)
 
 ## Context
 
