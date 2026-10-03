@@ -1,9 +1,29 @@
 # Progress
 
-## Change 01: security patch (`docs/changes/security-patch/`): complete
+## C02: docs migration to project guide v2 (`docs/changes/02-guide-v2/`): in review
+
+Branch: `chore/02-guide-v2`
+Decisions: D11 (`docs/decisions.md`).
+
+### Done
+
+- S1: branch from portfolio, spec written, Before filled. Uncommitted Phase 0 work for error pages parked on `wip/error-pages`; it resumes after C03.
+- S2: C01 folder renamed to `docs/changes/01-security-patch/`, must-not-change list renamed to `docs/must-not-change.md` (git mv; old paths mapped in D11). Old paths updated in CLAUDE.md, progress.md, findings.md. D11 appended.
+- S3: findings F1–F13 numbered in order, F14 (C03: skills and commit-review hook) added. Open questions Q1–Q3 numbered; Q3 reconstructed.
+- S4: CLAUDE.md edits.
+- S5: no CLAUDE.md or AGENTS.md outside the repo root; ../tmp/ is empty; ../findings.md does not exist. After filled.
+- A3: old paths also match in 02-guide-v2/spec.md (describes the rename) and untracked process-notes.md; criterion wording too narrow, accepted.
+- CLAUDE.md change protocol: <NN-name> → <NN-slug> to match the folder pattern.
+
+### Next
+
+- S6 after review: commit, merge into portfolio, push, delete ../tmp/, fill A8.
+- C03: skills conversion (F14). Then error pages from `wip/error-pages`, renumbered.
+
+## Change 01: security patch (`docs/changes/01-security-patch/`): complete
 
 Branch: `chore/security-patch-next`
-Decisions: `docs/changes/security-patch/decisions.md` (project-wide: `docs/decisions.md`, D10).
+Decisions: `docs/changes/01-security-patch/decisions.md` (project-wide: `docs/decisions.md`, D10).
 
 ### Done
 
@@ -21,5 +41,3 @@ Decisions: `docs/changes/security-patch/decisions.md` (project-wide: `docs/decis
 - Step 8: merged into portfolio, manual Render deploy, A12 pass on the live URL.
 - Step 9: rollback not needed.
 - Step 10: remaining `npm audit` advisories logged in findings.md.
-
-### Next
