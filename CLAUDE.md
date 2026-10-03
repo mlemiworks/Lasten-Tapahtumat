@@ -4,17 +4,19 @@ Guidance for Claude Code when working in this repository (Lasten tapahtumat, a N
 
 ## Working documents
 
-All in `docs/` (see decision D5):
+All in `docs/` (see decisions D5, D11):
 
-- `docs/changes/<NN-name>/`: spec.md (and design.md and plan.md when present) and decisions.md for one change. **The current change is: `docs/changes/security-patch/`.**
+- `docs/changes/<NN-slug>/`: spec.md (and design.md and plan.md when present) and decisions.md for one change. **The current change is: `docs/changes/02-guide-v2/`.**
 - Decision logs (D10). IDs are one sequence across all files: check every decisions.md for the next free number. Append only; mark superseded entries, never delete them.
   - `docs/decisions.md`: project-wide decisions (D1, D5, D10, ...).
-  - `docs/changes/<NN-name>/decisions.md`: decisions for that change only (Change 01: `docs/changes/security-patch/decisions.md`, D2–D4, D6–D9).
+  - `docs/changes/<NN-slug>/decisions.md`: decisions for that change only (C01: `docs/changes/01-security-patch/decisions.md`, D2–D4, D6–D9).
 - `docs/progress.md`: what's done and what's next.
 - `docs/codebase-map.md`: architecture overview.
-- `docs/spec.md`: the project-wide "Must not change" list.
+- `docs/must-not-change.md`: the project-wide "Must not change" list.
 - `docs/findings.md`: backlog of known issues. Do **not** fix these unless the current change's spec includes them.
 - `docs/open-questions.md`
+
+ID prefixes: C change, D decision (global), F finding, Q open question, A criterion and S step (A and S are local to a change; outside it write C01-A3).
 
 Read the current change's spec.md and decisions.md, the project-wide `docs/decisions.md` and `docs/progress.md` before starting any work.
 
@@ -24,6 +26,7 @@ open-questions = something only a person can answer
 
 ## Working rules
 
+- Never edit an existing migration file; add a new one.
 - Follow the current change's plan step by step; stay within each step's Do and Don't.
 - Don't modify code outside the current step's scope. Don't "clean up" unrelated code, even if it looks wrong. Note it for findings.md instead.
 - Small, local choices within the current step (naming, formatting, internal structure): decide, and state the choice in your summary.
@@ -33,12 +36,15 @@ open-questions = something only a person can answer
 - Before marking a step done, run the checks the step's Verify section lists and report the actual output.
 - Update docs/progress.md at the end of each step. Commit docs and code together.
 - Never print, log or commit secrets or `.env` values.
+- Never commit until I confirm the review packet was approved. Before every commit, stop with a review packet: step goal; files changed with one line each; anything outside Do/Don't; checks run with actual output tail; criteria status; deviations; odd code touched or removed; proposed commit message.
+- Fill baseline and results tables, progress.md and findings.md yourself. Append decisions only after I approve them.
+- Write a decision only when scope, an acceptance criterion, a must-not-change item, the tier or the approach changes. Otherwise add one line to progress.md.
 
 ## Change protocol
 
 When a decision changes the spec, design or plan:
 
-1. Append it with: Supersedes, Affects, Why, Trade-off. Use the current change's `docs/changes/<NN-name>/decisions.md`, or `docs/decisions.md` if it applies project-wide.
+1. Append it with: Supersedes, Affects, Why, Trade-off. Use the current change's `docs/changes/<NN-slug>/decisions.md`, or `docs/decisions.md` if it applies project-wide.
 2. Stop and show me the proposed edits to affected documents. Spec changes: do not apply until I approve.
 3. Update affected docs; tag edits with the decision ID.
 4. If completed steps are affected, add rework steps to the plan.
@@ -57,9 +63,9 @@ npx prisma migrate deploy   # Apply existing migrations (uses DIRECT_URL from .e
 npx prisma db seed          # Seed the database in .env
 ```
 
-- **Lint:** the config currently also lints non-source folders. To compare with the baseline, use `npx eslint . --ignore-pattern "src/generated/**"` (baseline: 3021 problems, 190 errors).
+- **Lint:** the config currently also lints non-source folders. To compare with the baseline, use `npx eslint . --ignore-pattern "src/generated/**"` (baseline: see the current change's spec).
 - **Do not use `npm run dev:prod`**. It connects the local app to the **production** database.
-- New migrations: `npx prisma migrate dev --name <description>`, only when a plan step says so. Never edit an existing migration file; add a new one.
+- New migrations: `npx prisma migrate dev --name <description>`, only when a plan step says so.
 - Package manager: npm. Next.js and React are pinned to exact versions; install upgrades with `--save-exact`.
 
 ## Environment

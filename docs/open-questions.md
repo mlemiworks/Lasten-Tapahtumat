@@ -1,3 +1,3 @@
-- Whether the Render hosting setup also has its own cron job.
-- What production users see when the database is down.
-- What the stale Playwright output in playwright-report/ and t
+- Q1: Whether the Render hosting setup also has its own cron job.
+- Q2: What production users see when the database is down.
+- Q3: What the stale Playwright output in playwright-report/ and test-results/ (git-ignored; 4 browse-events results dated 2026-04-28, the day of the last portfolio-tests commit) is still needed for, or whether it can be deleted. (reconstructed)

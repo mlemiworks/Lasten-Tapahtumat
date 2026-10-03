@@ -17,3 +17,9 @@ Refines: D5 (where working documents live).
 Why: most decisions so far (D2–D4, D6–D9) only concern Change 01. Keeping them next to the change's spec makes each change self-contained and keeps the project-wide log short.
 Trade-off: finding the next free ID means checking every decisions.md, and references across files need the file location.
 Affects: CLAUDE.md (working documents, change protocol), docs/decisions.md, docs/changes/security-patch/ (new decisions.md; spec.md references), findings.md, progress.md. D2–D4 and D6–D9 moved to docs/changes/security-patch/decisions.md unchanged.
+
+D11: Adopt project guide v2 naming conventions.
+Refines: D5, D10.
+Why: v1 names conflicted (docs/spec.md vs change spec.md; CLAUDE.md said <NN-name>, the folder was security-patch). Specs need stable IDs to cite findings and questions.
+Trade-off: D2–D10 and the C01 spec keep old paths: docs/changes/security-patch/ = docs/changes/01-security-patch/; docs/spec.md = docs/must-not-change.md.
+Affects: docs/ layout, CLAUDE.md, progress.md, findings.md (F#), open-questions.md (Q#).
