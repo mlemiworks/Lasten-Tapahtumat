@@ -1,5 +1,5 @@
 # C03: Workflow as Claude Code skills and a commit gate
-Tier: Light · Status: in progress · Decisions: D12, D13
+Tier: Light · Status: done · Decisions: D12, D13
 
 ## Context
 Guide v2 splits work between chat (plans, reviews) and Claude Code (writes, runs).

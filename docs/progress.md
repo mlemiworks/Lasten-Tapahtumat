@@ -1,6 +1,6 @@
 # Progress
 
-## C03: workflow as Claude Code skills and a commit gate (`docs/changes/03-skills-workflow/`): in progress
+## C03: workflow as Claude Code skills and a commit gate (`docs/changes/03-skills-workflow/`): complete
 
 Branch: `chore/03-skills-workflow`
 Decisions: D12, D13 (`docs/decisions.md`).
@@ -19,10 +19,13 @@ Decisions: D12, D13 (`docs/decisions.md`).
 - S4: five /sdd-review runs (1–3 rejected, 4–5 approved); A8 pass.
 - S5: committed 7dec41f through the gate; A7 pass. ../.claude/ deleted; A12 pass. Review findings logged as F16 (hook passes invalid JSON input) and F17 (shell write to review.json not denied).
 
+- S5: doc updates committed as 026497f; merged into portfolio as f8da455, pushed. No Render deploy (no runtime files).
+- S6: closed with /sdd-close. F14 resolved; F18 (codebase-map.md garbled) and F19 (gate cases --all and paths untested) added. Close commit made directly on portfolio (docs only).
+
 ### Next
 
-- S5: commit these doc updates through the gate, merge into portfolio, push.
-- S6: /sdd-close.
+- Me: replace guide v2 in project knowledge with docs/workflow.md.
+- C04: error pages from `wip/error-pages` (F1, F15), started with /sdd-start.
 
 ## C02: docs migration to project guide v2 (`docs/changes/02-guide-v2/`): complete
 

@@ -2,10 +2,9 @@ I didn't modify any files. I skipped eventsforkids/docs/ as you asked. The check
 
 1. Folders and main components
 
-Eventsforkids/ ← outer folder (not a git repo)
-CLAUDE.md, COMMENT-RULES.md, ROADMAP.md, findings.md
-tmp/ ← older copies of CLAUDE.md and README.md (look stale)
-eventsforkids/ ← the actual Next.js app and git repo
+eventsforkids/ ← the Next.js app and git repo; sessions start here (the parent folder holds nothing else)
+.claude/ skills (sdd-*), hooks/review-gate.mjs (commit gate), settings.json
+docs/ workflow.md, changes/, decisions, findings, progress
 prisma/ schema, 3 migrations, seed.ts
 prisma.config.ts Prisma CLI config (DIRECT_URL)
 .github/workflows/reset.yml GitHub Actions cron that calls /api/reset every 6 hours

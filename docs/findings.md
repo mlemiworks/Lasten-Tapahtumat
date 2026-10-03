@@ -27,10 +27,14 @@
 
 - F13: npm audit after Change 01 (next 16.3.8, react 19.2.8): 18 advisories remain, none in next/react (1 critical, 10 high, 5 moderate, 2 low). Top-level packages they come through: prisma/@prisma/client, next-auth, eslint, eslint-config-next, tsx, @supabase/supabase-js. Review in a separate change.
 
-- F14: Convert the workflow to Claude Code skills and a commit-review hook (the hook stops commits until the review packet is approved). Planned as C03.
+- F14: Convert the workflow to Claude Code skills and a commit-review hook (the hook stops commits until the review packet is approved). Planned as C03. Resolved by C03 (merged as f8da455).
 
 - F15: wip/error-pages (591a770, based on ddc3c71) removes the must-not-change item on the APP_URL/RESET_TOKEN secrets and the 6-hour schedule. Needs a decision before it lands. Its folder needs an NN-slug name; its progress.md and open-questions.md edits conflict with C02.
 
 - F16: review-gate.mjs exits 0 (lets the call through) when its hook input is not valid JSON (`.claude/hooks/review-gate.mjs:77`). The C03 spec's "internal errors on a commit block" only covers errors after a commit is detected. Found by /sdd-review in C03-S4.
 
 - F17: a shell command can still write `.claude/state/review.json`; the deny rule in `.claude/settings.json` covers only Edit. Consider a Write deny rule and a hook check for the path. C03-A6 did not test a shell write. Found by /sdd-review in C03-S4.
+
+- F18: docs/codebase-map.md is a pasted exploration transcript: it opens with chat preamble ("I didn't modify any files..."), several table cells and lines are cut off mid-word ("iltering", "Maeather", "Iase Storage"), and section 1 still describes the outer Eventsforkids/ folder. Rewrite it from the code. Seen during C03 close.
+
+- F19: the commit gate's block on `--all` and path arguments (`git commit -m x file`) was not tested end to end; C03-A5 tried only `-am`, and the S2 unit tests covered `-am` and `--amend`. Add these cases when the gate is next touched (with F16, F17).
