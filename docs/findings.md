@@ -30,3 +30,7 @@
 - F14: Convert the workflow to Claude Code skills and a commit-review hook (the hook stops commits until the review packet is approved). Planned as C03.
 
 - F15: wip/error-pages (591a770, based on ddc3c71) removes the must-not-change item on the APP_URL/RESET_TOKEN secrets and the 6-hour schedule. Needs a decision before it lands. Its folder needs an NN-slug name; its progress.md and open-questions.md edits conflict with C02.
+
+- F16: review-gate.mjs exits 0 (lets the call through) when its hook input is not valid JSON (`.claude/hooks/review-gate.mjs:77`). The C03 spec's "internal errors on a commit block" only covers errors after a commit is detected. Found by /sdd-review in C03-S4.
+
+- F17: a shell command can still write `.claude/state/review.json`; the deny rule in `.claude/settings.json` covers only Edit. Consider a Write deny rule and a hook check for the path. C03-A6 did not test a shell write. Found by /sdd-review in C03-S4.
