@@ -6,7 +6,7 @@ Guidance for Claude Code when working in this repository (Lasten tapahtumat, a N
 
 All in `docs/` (see decisions D5, D11):
 
-- `docs/changes/<NN-slug>/`: spec.md (and design.md and plan.md when present) and decisions.md for one change. **The current change is: `docs/changes/02-guide-v2/`.**
+- `docs/changes/<NN-slug>/`: spec.md (and design.md and plan.md when present) and decisions.md for one change. **The current change is: none.**
 - Decision logs (D10). IDs are one sequence across all files: check every decisions.md for the next free number. Append only; mark superseded entries, never delete them.
   - `docs/decisions.md`: project-wide decisions (D1, D5, D10, ...).
   - `docs/changes/<NN-slug>/decisions.md`: decisions for that change only (C01: `docs/changes/01-security-patch/decisions.md`, D2–D4, D6–D9).

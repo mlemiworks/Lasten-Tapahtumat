@@ -28,3 +28,5 @@
 - F13: npm audit after Change 01 (next 16.3.8, react 19.2.8): 18 advisories remain, none in next/react (1 critical, 10 high, 5 moderate, 2 low). Top-level packages they come through: prisma/@prisma/client, next-auth, eslint, eslint-config-next, tsx, @supabase/supabase-js. Review in a separate change.
 
 - F14: Convert the workflow to Claude Code skills and a commit-review hook (the hook stops commits until the review packet is approved). Planned as C03.
+
+- F15: wip/error-pages (591a770, based on ddc3c71) removes the must-not-change item on the APP_URL/RESET_TOKEN secrets and the 6-hour schedule. Needs a decision before it lands. Its folder needs an NN-slug name; its progress.md and open-questions.md edits conflict with C02.

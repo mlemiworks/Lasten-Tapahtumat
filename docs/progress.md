@@ -1,6 +1,6 @@
 # Progress
 
-## C02: docs migration to project guide v2 (`docs/changes/02-guide-v2/`): in review
+## C02: docs migration to project guide v2 (`docs/changes/02-guide-v2/`): complete
 
 Branch: `chore/02-guide-v2`
 Decisions: D11 (`docs/decisions.md`).
@@ -14,10 +14,11 @@ Decisions: D11 (`docs/decisions.md`).
 - S5: no CLAUDE.md or AGENTS.md outside the repo root; ../tmp/ is empty; ../findings.md does not exist. After filled.
 - A3: old paths also match in 02-guide-v2/spec.md (describes the rename) and untracked process-notes.md; criterion wording too narrow, accepted.
 - CLAUDE.md change protocol: <NN-name> → <NN-slug> to match the folder pattern.
+- S6: 7447f13 merged as b180aae, pushed; ../tmp/ removed; A8 pass.
+- Close commit made directly on portfolio (docs only).
 
 ### Next
 
-- S6 after review: commit, merge into portfolio, push, delete ../tmp/, fill A8.
 - C03: skills conversion (F14). Then error pages from `wip/error-pages`, renumbered.
 
 ## Change 01: security patch (`docs/changes/01-security-patch/`): complete

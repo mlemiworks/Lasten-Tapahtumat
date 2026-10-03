@@ -1,5 +1,5 @@
 # C02: Docs migration to project guide v2
-Tier: Light · Status: in progress · Decisions: D11
+Tier: Light · Status: done · Decisions: D11
 
 ## Context
 Project guide v2.0 replaces v1.0, based on the C01 process notes. The repo docs
@@ -47,7 +47,7 @@ Out:
 | A5 | CLAUDE.md contains every S4 edit; every old rule is still present or its move is listed in the review packet | git diff portfolio -- CLAUDE.md | Fail: no S4 edits yet | Pass: all S4 edits present; one rule moved (migration rule, Commands → Working rules) | Also changed <NN-name> to <NN-slug> in Change protocol |
 | A6 | Changes only in docs/ and CLAUDE.md | git diff --stat portfolio | Pass: diff empty | Pass: 9 files, all in docs/ or CLAUDE.md | |
 | A7 | D11 appended; D1–D10 unchanged | git diff portfolio -- docs/decisions.md shows only added lines | Fail: no D11; diff empty | Pass: only + lines (blank line + D11, 6 lines) | |
-| A8 | ../tmp/ does not exist | ls .. (after S6) | Fail: ../tmp/ exists (empty) | Pending S6 | ../tmp/ is empty: nothing to list |
+| A8 | ../tmp/ does not exist | ls .. (after S6) | Fail: ../tmp/ exists (empty) | Pass: ls .. shows .claude/ and eventsforkids/ only | ../tmp/ is empty: nothing to list |
 
 ## Plan
 S1: Branch, write this spec, fill Before.
