@@ -4,9 +4,10 @@ Guidance for Claude Code when working in this repository (Lasten tapahtumat, a N
 
 ## Working documents
 
-All in `docs/` (see decisions D5, D11):
+All in `docs/` (see decisions D5, D11, D12):
 
-- `docs/changes/<NN-slug>/`: spec.md (and design.md and plan.md when present) and decisions.md for one change. **The current change is: none.**
+- `docs/workflow.md`: the method: phases, skills, commit gate, rigor tiers, criteria format, decision threshold, naming.
+- `docs/changes/<NN-slug>/`: spec.md (and design.md and plan.md when present) and decisions.md for one change. **The current change is: `docs/changes/03-skills-workflow/`.**
 - Decision logs (D10). IDs are one sequence across all files: check every decisions.md for the next free number. Append only; mark superseded entries, never delete them.
   - `docs/decisions.md`: project-wide decisions (D1, D5, D10, ...).
   - `docs/changes/<NN-slug>/decisions.md`: decisions for that change only (C01: `docs/changes/01-security-patch/decisions.md`, D2–D4, D6–D9).
@@ -15,6 +16,8 @@ All in `docs/` (see decisions D5, D11):
 - `docs/must-not-change.md`: the project-wide "Must not change" list.
 - `docs/findings.md`: backlog of known issues. Do **not** fix these unless the current change's spec includes them.
 - `docs/open-questions.md`
+
+Procedures are project skills in `.claude/skills/`, invoked only by me: `/sdd-start`, `/sdd-design`, `/sdd-step`, `/sdd-review`, `/sdd-validate`, `/sdd-close`. Templates, including the review packet: `.claude/skills/sdd-start/templates.md`.
 
 ID prefixes: C change, D decision (global), F finding, Q open question, A criterion and S step (A and S are local to a change; outside it write C01-A3).
 
@@ -27,28 +30,19 @@ open-questions = something only a person can answer
 ## Working rules
 
 - Never edit an existing migration file; add a new one.
+- Sessions start in `eventsforkids/` (the repo root). From the parent folder, the skills and the commit gate don't load.
 - Follow the current change's plan step by step; stay within each step's Do and Don't.
 - Don't modify code outside the current step's scope. Don't "clean up" unrelated code, even if it looks wrong. Note it for findings.md instead.
 - Small, local choices within the current step (naming, formatting, internal structure): decide, and state the choice in your summary.
-- Anything that would deviate from the plan, touch a Don't item, change a must-not-change item, or require changing the spec or design: **stop and ask**.
+- Anything that would deviate from the plan, touch a Don't item, change a must-not-change item, or require changing the spec or design: **stop and ask**. Documents change first, code follows; spec, design and plan edits apply only after I approve them.
 - Never modify existing tests to make them pass. If a test seems wrong, stop and explain.
 - Never run `npm audit fix --force`. Upgrade only the packages the current step names.
 - Before marking a step done, run the checks the step's Verify section lists and report the actual output.
 - Update docs/progress.md at the end of each step. Commit docs and code together.
 - Never print, log or commit secrets or `.env` values.
-- Never commit until I confirm the review packet was approved. Before every commit, stop with a review packet: step goal; files changed with one line each; anything outside Do/Don't; checks run with actual output tail; criteria status; deviations; odd code touched or removed; proposed commit message.
+- Never commit without an approved `/sdd-review` verdict for the exact staged diff; `.claude/hooks/review-gate.mjs` enforces it. Stage paths explicitly (never `git add -A`) and commit only with `git commit -m` or `-F`: no `-a`, `--amend` or paths. Never record a verdict yourself or edit `.claude/state/review.json`.
 - Fill baseline and results tables, progress.md and findings.md yourself. Append decisions only after I approve them.
 - Write a decision only when scope, an acceptance criterion, a must-not-change item, the tier or the approach changes. Otherwise add one line to progress.md.
-
-## Change protocol
-
-When a decision changes the spec, design or plan:
-
-1. Append it with: Supersedes, Affects, Why, Trade-off. Use the current change's `docs/changes/<NN-slug>/decisions.md`, or `docs/decisions.md` if it applies project-wide.
-2. Stop and show me the proposed edits to affected documents. Spec changes: do not apply until I approve.
-3. Update affected docs; tag edits with the decision ID.
-4. If completed steps are affected, add rework steps to the plan.
-5. Commit doc changes together with related code.
 
 ## Commands
 

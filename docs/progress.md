@@ -1,5 +1,29 @@
 # Progress
 
+## C03: workflow as Claude Code skills and a commit gate (`docs/changes/03-skills-workflow/`): in progress
+
+Branch: `chore/03-skills-workflow`
+Decisions: D12, D13 (`docs/decisions.md`).
+
+### Done
+
+- S1: branch from portfolio, spec written, Before filled.
+- S2: skills, hook, settings, CLAUDE.md, workflow.md and D12 written; automated check results in the spec's Notes.
+- S3: new session in eventsforkids/; A2–A6 pass (After filled); A7 precheck reached the ask prompt. Test file and review.json removed.
+- S4: A1, A9–A11 pass (After filled); C03 staged; review packet written to .claude/state/review-packet.md.
+- S4: spec size limit: the Notes section counts as results (like the results table), so the spec fits the Light 80-line limit.
+- S4: A9 Before corrected from 14 to 13 working rules (S1 miscount); After is 14.
+- S4: D13: sdd-review now approves when no failed check is blocking; minor issues become notes.
+- S4: hook matcher is Bash|PowerShell (settings.json), broader than the spec's "every Bash call" (Scope In, Why); spec wording left as is.
+- S4: progress-note template is `S<n>: ...` (no date, no C<NN> prefix: lines sit under the change's section); workflow.md: the spec's Notes section doesn't count toward size limits (review 4 notes).
+- S4: five /sdd-review runs (1–3 rejected, 4–5 approved); A8 pass.
+- S5: committed 7dec41f through the gate; A7 pass. ../.claude/ deleted; A12 pass. Review findings logged as F16 (hook passes invalid JSON input) and F17 (shell write to review.json not denied).
+
+### Next
+
+- S5: commit these doc updates through the gate, merge into portfolio, push.
+- S6: /sdd-close.
+
 ## C02: docs migration to project guide v2 (`docs/changes/02-guide-v2/`): complete
 
 Branch: `chore/02-guide-v2`
