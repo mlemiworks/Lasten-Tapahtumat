@@ -51,3 +51,5 @@ next-env.d.ts
 
 # private learning notes (D5: planning docs are public)
 /docs/process-notes.md
+.claude/settings.local.json
+.claude/state/

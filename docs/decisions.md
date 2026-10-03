@@ -23,3 +23,15 @@ Refines: D5, D10.
 Why: v1 names conflicted (docs/spec.md vs change spec.md; CLAUDE.md said <NN-name>, the folder was security-patch). Specs need stable IDs to cite findings and questions.
 Trade-off: D2–D10 and the C01 spec keep old paths: docs/changes/security-patch/ = docs/changes/01-security-patch/; docs/spec.md = docs/must-not-change.md.
 Affects: docs/ layout, CLAUDE.md, progress.md, findings.md (F#), open-questions.md (Q#).
+
+D12: Run the SDD workflow fully in Claude Code; retire the chat role.
+     Supersedes: project guide v2 sections 2, 6, 8, 10 (chat drafts, reviews, handoffs).
+     Why: copying between chat and terminal was the main friction (C01, C02 process notes); skills load procedures on demand and a hook enforces the review gate.
+     Trade-off: no separate Opus planner; review independence rests on a forked subagent; the gate covers Claude's git commit only, not merges or my own commits.
+     Affects: CLAUDE.md, .claude/, docs/workflow.md, all future changes; sessions start in eventsforkids/.
+
+D13: /sdd-review approves when no failed check is blocking; minor issues become notes.
+     Supersedes: sdd-review "approve only if every check passes" (C03 draft).
+     Why: three C03 rejections were for a glued line, a stale stat and a miscount; full re-review rounds cost more than they caught.
+     Trade-off: minor errors can land in a commit; they are fixed in the next commit or logged in progress.md.
+     Affects: .claude/skills/sdd-review/SKILL.md; every future review.
