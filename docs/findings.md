@@ -1,6 +1,6 @@
 ### Observed:
 
-- F1: when the DB is unreachable, the landing page crashes (dev shows error overlay). Unverified: what production users see. Check whether error.tsx / global-error.tsx exist.
+- F1: when the DB is unreachable, the landing page crashes (dev shows error overlay). Unverified: what production users see. Check whether error.tsx / global-error.tsx exist. Resolved by C04 (fast-forwarded into portfolio as 4872c79).
 
 - F2: Next.js 16 warns that middleware is deprecated in favor of proxy. Works for now.
 
@@ -29,7 +29,7 @@
 
 - F14: Convert the workflow to Claude Code skills and a commit-review hook (the hook stops commits until the review packet is approved). Planned as C03. Resolved by C03 (merged as f8da455).
 
-- F15: wip/error-pages (591a770, based on ddc3c71) removes the must-not-change item on the APP_URL/RESET_TOKEN secrets and the 6-hour schedule. Needs a decision before it lands. Its folder needs an NN-slug name; its progress.md and open-questions.md edits conflict with C02.
+- F15: wip/error-pages (591a770, based on ddc3c71) removes the must-not-change item on the APP_URL/RESET_TOKEN secrets and the 6-hour schedule. Needs a decision before it lands. Its folder needs an NN-slug name; its progress.md and open-questions.md edits conflict with C02. Resolved by C04 (content reused, must-not-change deletion not carried over).
 
 - F16: review-gate.mjs exits 0 (lets the call through) when its hook input is not valid JSON (`.claude/hooks/review-gate.mjs:77`). The C03 spec's "internal errors on a commit block" only covers errors after a commit is detected. Found by /sdd-review in C03-S4.
 

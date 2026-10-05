@@ -21,9 +21,13 @@ Tier: Standard. Decisions: D14 (`docs/changes/04-error-pages/decisions.md`).
 - S2: A10 run by me (Claude's /api/reset call was blocked by the auto-mode classifier). F21 added: non-owner sees the edit form, 403 only on save.
 - S2: /sdd-validate: A7, A8, A12 rerun; A1, A5, A9, A11 rechecked by me, all pass; no Before/After differences needing a decision. A13 not yet testable (S3).
 
+- S2: committed as 4872c79 through the gate (review approved; carried the S1 and design docs).
+- S3: feat/04-error-pages fast-forwarded into portfolio (no merge commit; portfolio HEAD 4872c79 before this docs commit), pushed and deployed on Render by me. A13 pass (first request after idle, C01 A4, A5, A6, A9). Q2 closed; F1 and F15 resolved. wip/error-pages not deleted (waiting for my confirmation). Docs commit made on portfolio.
+- S3: /sdd-validate: A7, A8, A12 rerun, all pass (A12 diff vs 6e607a7, since portfolio now contains S2); manual criteria kept as recorded. Q2 reworded per review note: DB-down page verified locally only, not on Render.
+
 ### Next
 
-- /sdd-review S2, commit, then S3.
+- Run /sdd-close for C04.
 - After C04: next change sets up automated testing (F4), so the error pages and C01 checks stop relying on manual runs (Risk 5, D14).
 
 

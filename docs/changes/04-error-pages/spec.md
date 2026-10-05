@@ -68,14 +68,17 @@ Render check part of C04.
 | A10 | /api/reset with the correct token resets and reseeds (200); a wrong token is rejected (401) | curl locally, token from .env | Pass | Pass | Running dev server (:3000, .env): correct token 200 "Database reset and reseeded.", wrong token 401. After (S2): 200 and 401 (run by user on dev server) |
 | A11 | No new errors in the browser console or server terminal during A9–A10 | Compare with baseline run | Baseline | Pass | Browser: `Cookie "__cf_bm" has been rejected for invalid domain` during image upload (Supabase Storage's Cloudflare cookie). Server terminal: not reported. After (S2): no new errors (user). Error page runs log React #441 (Suspense switched to client rendering) in the browser console; expected with a streamed server error |
 | A12 | connectionTimeoutMillis appears only in src/lib/prisma.ts; docs/must-not-change.md and .github/workflows/reset.yml unchanged | grep -r; git diff portfolio --stat on both files | 0 matches | Pass | Expected exactly 1 after (prisma.ts). must-not-change.md and reset.yml: no diff vs portfolio. After (S2): 1 match, src/lib/prisma.ts:16; no diff vs portfolio on both files |
-| A13 | When deployed to Render, the demo passes C01 A4, A5, A6 and A9, including the first request after a cold start | Manual, live URL | Pass | | First load after 15+ min idle: events shown almost immediately (no visible spin-up wait; whether Render actually slept is unverified). C01 A4, A5, A6, A9 pass on live |
+| A13 | When deployed to Render, the demo passes C01 A4, A5, A6 and A9, including the first request after a cold start | Manual, live URL | Pass | Pass | First load after 15+ min idle: events shown almost immediately (no visible spin-up wait; whether Render actually slept is unverified). C01 A4, A5, A6, A9 pass on live. After (S3, 5.10.2026): user-checked on live after the deploy; first request after 15+ min idle, C01 A4, A5, A6, A9 all pass |
 
 Notes:
 - `next start` loads .env.production.local (production DB) over .env. Local production-build
   runs must pass DATABASE_URL (and RESET_TOKEN) from .env explicitly. In S1 one unguarded run
   sent read-only GETs and two /api/reset POSTs to production; both POSTs returned 401 (the
   .env token differs). No production data changed. F20.
-- /sdd-validate (5.10.2026): A7, A8, A12 rerun (build 0, tsc 0, lint 3022, one match in prisma.ts, no diff on the two files). A1, A5, A9, A11 rechecked by the user, pass. A13 waits for S3.
+- /sdd-validate (5.10.2026): A7, A8, A12 rerun (build 0, tsc 0, lint 3022, one match in prisma.ts, no diff on the two files). A1, A5, A9, A11 rechecked by the user, pass. A13 waited for S3 (now Pass).
+- /sdd-validate (S3, 5.10.2026): A7, A8, A12 rerun on portfolio 4872c79 (build 0, tsc 0, lint 3022,
+  one match at prisma.ts:16; no diff on the two files vs 6e607a7, the last pre-C04 commit, because
+  portfolio now contains S2). Manual criteria kept as recorded (no code change since S2).
 - A1–A3 Before: HTTP 200 with header and footer in the HTML: the loading.tsx Suspense shell
   streams first and the error follows, so what the visitor sees is judged in a browser.
 
