@@ -13,6 +13,7 @@ Rules: ${CLAUDE_PROJECT_DIR}/docs/workflow.md. Templates: ${CLAUDE_PROJECT_DIR}/
 !`git status --short --branch`
 !`git log --oneline -5`
 
+0. Model check: say which model you are running as. This skill expects Opus. On another model, stop and tell me to run `/model opus` and invoke /sdd-start again.
 1. The working directory must be the repo root (eventsforkids/) and the tree clean. If not, stop and say why.
 2. Read CLAUDE.md, docs/workflow.md, docs/progress.md, docs/must-not-change.md, docs/findings.md, docs/open-questions.md, docs/decisions.md and docs/codebase-map.md. If $ARGUMENTS names an F#, read that finding.
 3. State in at most 3 lines: the change, its C number and slug, the tier and the trigger that sets it.

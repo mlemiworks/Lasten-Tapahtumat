@@ -7,6 +7,7 @@ disable-model-invocation: true
 
 Rules: ${CLAUDE_PROJECT_DIR}/docs/workflow.md. Packet template: ${CLAUDE_PROJECT_DIR}/.claude/skills/sdd-start/templates.md.
 
+0. Model check: say which model you are running as. This skill expects Sonnet. On another model, stop and tell me to run `/model sonnet` and invoke /sdd-close again.
 1. Read the current change's documents, docs/progress.md, docs/findings.md and docs/open-questions.md.
 2. Every criterion's After must be filled and the deploy (if any) recorded. If not, stop and list what's missing.
 3. Mark the change done in progress.md with its merge commit. Add new findings (next F#) and open questions (next Q#). Mark findings this change resolved.

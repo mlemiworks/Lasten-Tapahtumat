@@ -8,6 +8,7 @@ disable-model-invocation: true
 
 Rules: ${CLAUDE_PROJECT_DIR}/docs/workflow.md. Packet template: ${CLAUDE_PROJECT_DIR}/.claude/skills/sdd-start/templates.md.
 
+0. Model check: say which model you are running as. This skill expects Sonnet (Opus is fine for a hard bug: say so first). On another model, stop and tell me to run `/model sonnet` and invoke /sdd-step again.
 1. Read CLAUDE.md, the current change's spec.md, decisions.md, design.md and plan.md if present, and docs/progress.md. Find step $ARGUMENTS, or the next undone step if none is given.
 2. Describe your approach in at most 10 lines: files you'll change, callers you'll check, how you'll verify. Wait for my go.
 3. Implement within the step's Do and Don't. Small local choices: decide, and note them in the packet.

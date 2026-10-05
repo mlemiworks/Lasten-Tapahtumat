@@ -7,6 +7,7 @@ disable-model-invocation: true
 
 Rules: ${CLAUDE_PROJECT_DIR}/docs/workflow.md. Packet template: ${CLAUDE_PROJECT_DIR}/.claude/skills/sdd-start/templates.md.
 
+0. Model check: say which model you are running as. This skill expects Sonnet. On another model, stop and tell me to run `/model sonnet` and invoke /sdd-validate again.
 1. Read the current change's spec.md and decisions.md.
 2. Rerun every automated criterion. Fill After with actual results (output tail in Notes where useful).
 3. Give me the manual criteria as a checklist. Wait, then fill them in from my results.
