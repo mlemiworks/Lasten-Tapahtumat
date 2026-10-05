@@ -16,9 +16,16 @@ Tier: Standard. Decisions: none.
 - S2: lint count is now 8 (5 errors, 3 warnings, all in src/), not 3022: the html reporter replaced the stale playwright-report/, which the lint config was scanning. Below the baseline, so A13 passes. test-results/ is still the stale empty dir for S4 cleanup.
 - S2: I had to stop my `next dev` on :3000 first (dev lock). Chromium 1243 downloaded for Playwright 1.63. Local choices: testIgnore db-error/ in the main config; `trace: 'off'` sits under `use` (tsc rejects it at top level); E2E_ADMIN_PASSWORD optional in env.ts until S3.
 
+- S2: committed as 387c5bd through the gate.
+- S3: testids added to the 9 src/ files (44 insertions, 4 deletions: 4 elements re-wrapped onto several lines to carry the attribute) and 6 specs (browse ported from portfolio-tests, event-details, event-crud, register, permissions, admin); `npm run test:e2e`: 26 tests (main) + 3 (db-error) pass, run 4 times in S3, the last 3 consecutive green. A4–A9, A13, A14 After filled; A1 stays for S4.
+- S3: local choices: `event-media` on the existing image container instead of the design's `event-illustration` (Illustration doesn't pass props through; a wrapper would change markup), the illustration test looks for the svg inside it; extra `category-pill-all` testid; helpers `visibleTestId`, `createEvent`, `deleteEvent`, `logout`; new specs prettier-formatted with single quotes (the repo has no prettier config).
+- S3: flaky until fixed: after `page.goto` of a server-rendered page (dashboard, admin, home) dev-mode streaming briefly leaves a hidden duplicate of the content, and strict-mode locators failed (2 elements). Tests now count `:visible` elements. Not an app bug as far as seen; not investigated further.
+- S3: first prettier run (npx, no config) reformatted the S2 files to double quotes; reverted with git checkout, S2 files are unchanged.
+- S3: DB-down server errors (PrismaClientKnownRequestError, DatabaseNotReachable) appear in the db-error run's log by design.
+
 ### Next
 
-- /sdd-review for S2, then /sdd-step S3. Before S3: add E2E_ADMIN_PASSWORD to .env.
+- /sdd-review for S3, then /sdd-step S4.
 
 ## C04: error pages and faster database failure (`docs/changes/04-error-pages/`): complete
 

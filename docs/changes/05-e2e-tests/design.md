@@ -46,7 +46,7 @@ Changed: src/, data-testid only (A14), kebab-case (CLAUDE.md Testing):
   city-filter, category-pill-<key>, page-button-<n>, no-results.
 - login-dropdown: login-button, login-email, login-password, login-submit, logout-button.
 - event-form: event-title-input, event-date-input, event-form-submit. event-actions:
-  event-edit-link, event-delete-button. [event]/page: event-image, event-illustration.
+  event-edit-link, event-delete-button. [event]/page: event-image, event-media.
   EventMap: event-map.
 - register: register-email, register-password, register-confirm, register-submit,
   register-error. admin/client: admin-search, admin-event-row, admin-delete-button.

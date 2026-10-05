@@ -39,7 +39,10 @@ export default function EventMap({
   locationName: string;
 }) {
   return (
-    <div className="h-48 rounded-lg overflow-hidden border border-border">
+    <div
+      data-testid="event-map"
+      className="h-48 rounded-lg overflow-hidden border border-border"
+    >
       <MapContainer
         center={[lat, lng]}
         zoom={15}

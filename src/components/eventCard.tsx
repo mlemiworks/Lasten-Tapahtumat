@@ -37,6 +37,7 @@ export default function EventCard({ event: _event }: { event: Event }) {
     // group enables child elements to react to the card's hover state via group-hover:
     <Link
       href={`/${event.id}`}
+      data-testid="event-card"
       className="group flex flex-col bg-surface rounded-card border border-border shadow-(--shadow-card) overflow-hidden transition-shadow hover:shadow-(--shadow-card-hover)"
     >
       {/* Image area — tinted with the category color when no photo is present */}
@@ -70,6 +71,7 @@ export default function EventCard({ event: _event }: { event: Event }) {
         {/* Category badge — positioned over the image, top-left */}
         {cat && (
           <span
+            data-testid="event-category-badge"
             className="absolute top-3 left-3 rounded-pill px-3 py-1 text-xs font-bold"
             style={{ background: cat.color, color: cat.ink }}
           >

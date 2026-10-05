@@ -34,12 +34,18 @@ export default function EventActions({ eventId, createdBy }: Props) {
       {isOwner && (
         <Link
           href={`/${eventId}/edit`}
+          data-testid="event-edit-link"
           className="rounded-full font-semibold transition-colors bg-surface-soft text-ink hover:bg-border px-4 py-2 text-base"
         >
           Muokkaa
         </Link>
       )}
-      <Button variant="danger" size="md" onClick={handleDelete}>
+      <Button
+        variant="danger"
+        size="md"
+        onClick={handleDelete}
+        data-testid="event-delete-button"
+      >
         Poista
       </Button>
     </div>

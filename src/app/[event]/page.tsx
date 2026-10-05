@@ -76,11 +76,13 @@ export default async function EventPage({
         <div>
           {/* Image with category-tinted backdrop as a fallback behind the photo */}
           <div
+            data-testid="event-media"
             className="aspect-16/9 w-full rounded-card overflow-hidden mb-6"
             style={{ background: cat?.color ?? 'var(--color-surface-soft)' }}
           >
             {isValidUrl(event.imgUrl) ? (
               <img
+                data-testid="event-image"
                 src={event.imgUrl}
                 alt={event.title}
                 className="w-full h-full object-cover"

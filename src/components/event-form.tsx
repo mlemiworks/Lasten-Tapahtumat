@@ -132,6 +132,7 @@ export default function EventForm({
           onChange={set('title')}
           required
           placeholder="Tapahtuman nimi"
+          data-testid="event-title-input"
         />
       </Field>
 
@@ -178,6 +179,7 @@ export default function EventForm({
         <Field label="Päivämäärä" required>
           <Input
             type="date"
+            data-testid="event-date-input"
             value={fields.date}
             onChange={set('date')}
             required
@@ -290,6 +292,7 @@ export default function EventForm({
 
       <Button
         type="submit"
+        data-testid="event-form-submit"
         size="lg"
         disabled={loading}
         className="w-full mt-2"

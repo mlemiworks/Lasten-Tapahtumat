@@ -65,6 +65,7 @@ export default function HomeBrowser({ events }: { events: Event[] }) {
               🔍
             </span>
             <input
+              data-testid="event-search"
               value={q}
               onChange={(e) => {
                 setQ(e.target.value);
@@ -75,6 +76,7 @@ export default function HomeBrowser({ events }: { events: Event[] }) {
             />
           </div>
           <select
+            data-testid="city-filter"
             value={city}
             onChange={(e) => {
               setCity(e.target.value);
@@ -96,6 +98,7 @@ export default function HomeBrowser({ events }: { events: Event[] }) {
       <div className="flex flex-wrap gap-2 mb-8">
         {/* "Kaikki" is selected when no category filter is active */}
         <button
+          data-testid="category-pill-all"
           onClick={() => {
             setCat('');
             setPage(1);
@@ -111,6 +114,7 @@ export default function HomeBrowser({ events }: { events: Event[] }) {
         {CATEGORIES.map((c) => (
           <button
             key={c.key}
+            data-testid={`category-pill-${c.key}`}
             onClick={() => {
               setCat(c.key === cat ? '' : c.key);
               setPage(1);
@@ -133,7 +137,10 @@ export default function HomeBrowser({ events }: { events: Event[] }) {
 
       {/* RESULTS */}
       {filtered.length === 0 ? (
-        <div className="rounded-2xl border border-border bg-surface p-16 text-center">
+        <div
+          data-testid="no-results"
+          className="rounded-2xl border border-border bg-surface p-16 text-center"
+        >
           <div className="font-display text-2xl text-ink mb-2">Ei tuloksia</div>
           <div className="text-ink-soft">
             Kokeile toista hakusanaa tai tyhjennä suodattimet.
@@ -151,6 +158,7 @@ export default function HomeBrowser({ events }: { events: Event[] }) {
               {Array.from({ length: pages }).map((_, i) => (
                 <button
                   key={i}
+                  data-testid={`page-button-${i + 1}`}
                   onClick={() => setPage(i + 1)}
                   className={`w-10 h-10 rounded-full font-semibold transition-colors ${
                     page === i + 1

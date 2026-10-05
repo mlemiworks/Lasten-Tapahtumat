@@ -68,6 +68,7 @@ export default function LoginDropdown({
           variant="ghost"
           size="sm"
           onClick={() => signOut({ redirect: false })}
+          data-testid="logout-button"
           // text-primary-ink so it stays legible on the green header background
           className="text-primary-ink hover:bg-primary-ink/10"
         >
@@ -84,6 +85,7 @@ export default function LoginDropdown({
     >
       <Popover.Trigger asChild>
         <button
+          data-testid="login-button"
           className={`px-3.5 py-2 rounded-[18px] text-[15px] font-bold cursor-pointer border border-[rgb(158,197,232)] bg-[rgb(158,197,232)] text-[rgb(15,48,80)] transition-transform hover:brightness-105${fullWidth ? ' w-full' : ''}`}
         >
           Kirjaudu
@@ -103,6 +105,7 @@ export default function LoginDropdown({
             <Input
               type="email"
               placeholder="Sähköposti"
+              data-testid="login-email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -110,6 +113,7 @@ export default function LoginDropdown({
             <Input
               type="password"
               placeholder="Salasana"
+              data-testid="login-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
@@ -117,6 +121,7 @@ export default function LoginDropdown({
             {error && <p className="text-red-600 text-xs">{error}</p>}
             <Button
               type="submit"
+              data-testid="login-submit"
               variant="primary"
               size="md"
               className="w-full"

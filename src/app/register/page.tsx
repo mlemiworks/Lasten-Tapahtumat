@@ -57,6 +57,7 @@ export default function RegisterPage() {
             </label>
             <input
               id="email"
+              data-testid="register-email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -70,6 +71,7 @@ export default function RegisterPage() {
             </label>
             <input
               id="password"
+              data-testid="register-password"
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -84,6 +86,7 @@ export default function RegisterPage() {
             </label>
             <input
               id="confirm"
+              data-testid="register-confirm"
               type="password"
               value={confirm}
               onChange={(e) => setConfirm(e.target.value)}
@@ -91,7 +94,11 @@ export default function RegisterPage() {
               className="border border-gray-300 rounded px-3 py-2 bg-white text-gray-900"
             />
           </div>
-          {error && <p className="text-red-500 text-sm">{error}</p>}
+          {error && (
+            <p data-testid="register-error" className="text-red-500 text-sm">
+              {error}
+            </p>
+          )}
           {/* Remind the user what they're consenting to before they submit */}
           <p className="text-xs text-gray-500 leading-relaxed">
             Tämä on portfoliodemosivusto. Rekisteröitymällä hyväksyt, että
@@ -102,6 +109,7 @@ export default function RegisterPage() {
           </p>
           <button
             type="submit"
+            data-testid="register-submit"
             disabled={loading}
             className="bg-gray-900 text-white rounded px-4 py-2 hover:opacity-80 disabled:opacity-50"
           >

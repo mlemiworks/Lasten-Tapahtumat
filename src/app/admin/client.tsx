@@ -41,6 +41,7 @@ export default function AdminClient({ events }: { events: Event[] }) {
     <div>
       {/* Search */}
       <input
+        data-testid="admin-search"
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Etsi nimellä, järjestäjällä, kaupungilla..."
@@ -80,6 +81,7 @@ export default function AdminClient({ events }: { events: Event[] }) {
                 return (
                   <tr
                     key={e.id}
+                    data-testid="admin-event-row"
                     className="border-b border-border last:border-0 hover:bg-surface-soft/50"
                   >
                     <td className="px-4 py-3 font-medium text-ink max-w-[200px] truncate">
@@ -124,6 +126,7 @@ export default function AdminClient({ events }: { events: Event[] }) {
                         <span className="text-border">|</span>
                         <button
                           onClick={() => handleDelete(e.id, e.title)}
+                          data-testid="admin-delete-button"
                           className="text-red-600 text-xs font-semibold hover:underline"
                         >
                           Poista
