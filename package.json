@@ -7,7 +7,8 @@
     "dev:prod": "npx dotenv-cli -e .env.production.local -- next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:e2e": "playwright test && playwright test -c playwright.db-error.config.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.8.0",
@@ -26,6 +27,7 @@
     "react-leaflet": "^5.0.0"
   },
   "devDependencies": {
+    "@playwright/test": "1.63.0",
     "@tailwindcss/postcss": "^4.1.18",
     "@types/bcryptjs": "^2.4.6",
     "@types/leaflet": "^1.9.21",

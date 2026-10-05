@@ -1,5 +1,25 @@
 # Progress
 
+## C05: automated end-to-end tests (`docs/changes/05-e2e-tests/`): in progress
+
+Branch: `feat/05-e2e-tests`
+Tier: Standard. Decisions: none.
+
+### Done
+
+- S1: branch from portfolio, spec written. Intake: dev DB is the test DB (no extra Supabase project), so .env.test.local is not used; other questions took defaults (local only, Chromium, port portfolio-tests without merging, Q3 cleanup after confirmation). Reset-token separation added as A12 at my request; A11 merges the error-page and retry checks.
+- S1: Before filled: A13 pass (build 0, tsc 0, lint 3022); A1, A2, A4–A11, A15 fail (no suite); A3 not testable; A14 N/A. A12: .env token differs from production, .env.test.local holds the production token; live POST blocked for Claude by auto mode; run by me: 401 (0.54 s).
+- Design: design.md and plan.md written (plan doesn't fit the spec). Next 16's dev lock (.next/dev/lock) allows one `next dev` per folder, so test:e2e runs two Playwright configs in sequence on port 3100 (Risk 5 fallback). Serial, self-cleaning tests; guard in tests/e2e/env.ts; S2 characterization tests use roles and text only. Admin tests read E2E_ADMIN_PASSWORD from .env (I add it). Playwright: latest 1.x, exact pin.
+
+- S2: @playwright/test 1.63.0 (exact), test:e2e script, two configs on port 3100, env.ts guard, reset setup, helpers and 4 spec files. `npm run test:e2e`: 9 tests (main run) + 3 (db-error run) pass, exit 0. A2, A3, A10, A11, A13, A14 After filled; A1 waits for the 3 runs in S4.
+- S2: A3 checked: a dummy server on 3100 logged no request and the run exited 1 ("already used"); a shell DATABASE_URL gave the guard error before any server started.
+- S2: lint count is now 8 (5 errors, 3 warnings, all in src/), not 3022: the html reporter replaced the stale playwright-report/, which the lint config was scanning. Below the baseline, so A13 passes. test-results/ is still the stale empty dir for S4 cleanup.
+- S2: I had to stop my `next dev` on :3000 first (dev lock). Chromium 1243 downloaded for Playwright 1.63. Local choices: testIgnore db-error/ in the main config; `trace: 'off'` sits under `use` (tsc rejects it at top level); E2E_ADMIN_PASSWORD optional in env.ts until S3.
+
+### Next
+
+- /sdd-review for S2, then /sdd-step S3. Before S3: add E2E_ADMIN_PASSWORD to .env.
+
 ## C04: error pages and faster database failure (`docs/changes/04-error-pages/`): complete
 
 Branch: `feat/04-error-pages`
