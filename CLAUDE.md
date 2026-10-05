@@ -7,7 +7,7 @@ Guidance for Claude Code when working in this repository (Lasten tapahtumat, a N
 All in `docs/` (see decisions D5, D11, D12):
 
 - `docs/workflow.md`: the method: phases, skills, commit gate, rigor tiers, criteria format, decision threshold, naming.
-- `docs/changes/<NN-slug>/`: spec.md (and design.md and plan.md when present) and decisions.md for one change. **The current change is: C04, `docs/changes/04-error-pages/`.**
+- `docs/changes/<NN-slug>/`: spec.md (and design.md and plan.md when present) and decisions.md for one change. **The current change is: none.**
 - Decision logs (D10). IDs are one sequence across all files: check every decisions.md for the next free number. Append only; mark superseded entries, never delete them.
   - `docs/decisions.md`: project-wide decisions (D1, D5, D10, ...).
   - `docs/changes/<NN-slug>/decisions.md`: decisions for that change only (C01: `docs/changes/01-security-patch/decisions.md`, D2–D4, D6–D9).
@@ -59,13 +59,14 @@ npx prisma db seed          # Seed the database in .env
 
 - **Lint:** the config currently also lints non-source folders. To compare with the baseline, use `npx eslint . --ignore-pattern "src/generated/**"` (baseline: see the current change's spec).
 - **Do not use `npm run dev:prod`**. It connects the local app to the **production** database.
+- **`npm start` / `next start` also loads `.env.production.local`** over `.env`, so a local production build talks to the production database. Pass `DATABASE_URL` (and `RESET_TOKEN`) from `.env` explicitly (F20).
 - New migrations: `npx prisma migrate dev --name <description>`, only when a plan step says so.
 - Package manager: npm. Next.js and React are pinned to exact versions; install upgrades with `--save-exact`.
 
 ## Environment
 
 - `.env`: development database and keys (Next.js `next dev` and the Prisma CLI both read it).
-- `.env.production.local`: production. Only used through `dev:prod`. Never use it for testing.
+- `.env.production.local`: production. Loaded by `dev:prod` and by `next start` (see Commands). Never use it for testing.
 - Runtime variables: `DATABASE_URL` (transaction pooler, port 6543), `DIRECT_URL` (session pooler, port 5432, Prisma CLI only), `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` (server only, used in `/api/upload-image`, never in client code, never with a `NEXT_PUBLIC_` prefix), `NEXTAUTH_SECRET`, `NEXTAUTH_URL`, `RESET_TOKEN`.
 - `/api/reset` wipes and reseeds **whichever database the running app uses**.
 

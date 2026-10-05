@@ -115,7 +115,7 @@ Possible bugs and security issues:
 - PUT and create handle an empty time differently. PUT uses ?? null, so an empty string is stored as ''. Create uses || null, so it is stored as null.
 - Client code types id as a number. create-event/page.tsx and edit/client.tsx use id?: number, but IDs are cuid strings.
 - Uploaded images are never deleted. I found no code that removes them from Storage when an event is deleted or the database is reset. (Fairly sure, but not 100%.)
-- No error.tsx or global-error.tsx. If the database is down, the landing page crashes (also noted in findings.md).
+- error.tsx (root boundary, Finnish, retry + front page link) and global-error.tsx exist since C04; pg connect timeout 5 s in prisma.ts.
 - Debugging output left in: WeatherForecast.tsx has console.log calls.
 
 Leftovers and unclear files:

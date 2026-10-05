@@ -1,6 +1,6 @@
 # Progress
 
-## C04: error pages and faster database failure (`docs/changes/04-error-pages/`): in progress
+## C04: error pages and faster database failure (`docs/changes/04-error-pages/`): complete
 
 Branch: `feat/04-error-pages`
 Tier: Standard. Decisions: D14 (`docs/changes/04-error-pages/decisions.md`).
@@ -24,10 +24,14 @@ Tier: Standard. Decisions: D14 (`docs/changes/04-error-pages/decisions.md`).
 - S2: committed as 4872c79 through the gate (review approved; carried the S1 and design docs).
 - S3: feat/04-error-pages fast-forwarded into portfolio (no merge commit; portfolio HEAD 4872c79 before this docs commit), pushed and deployed on Render by me. A13 pass (first request after idle, C01 A4, A5, A6, A9). Q2 closed; F1 and F15 resolved. wip/error-pages not deleted (waiting for my confirmation). Docs commit made on portfolio.
 - S3: /sdd-validate: A7, A8, A12 rerun, all pass (A12 diff vs 6e607a7, since portfolio now contains S2); manual criteria kept as recorded. Q2 reworded per review note: DB-down page verified locally only, not on Render.
+- S3: committed as 7989ed9 through the gate.
+- Close: /sdd-close. Code reached portfolio by fast-forward (no merge commit): 4872c79 (S2), 7989ed9 (S3 docs). No new findings or open questions. CLAUDE.md current change set to none.
+- Close: wip/error-pages deleted after my confirmation (local only, was 591a770). Process notes written.
+- Close: A12's After note still says "no diff vs portfolio" (S2 result, before the merge); the method now names 6e607a7. Result unchanged, note left as recorded.
 
 ### Next
 
-- Run /sdd-close for C04.
+- Separate commit outside C04: step-0 model check in five sdd skills (approved 5.10.2026), with its own /sdd-review.
 - After C04: next change sets up automated testing (F4), so the error pages and C01 checks stop relying on manual runs (Risk 5, D14).
 
 

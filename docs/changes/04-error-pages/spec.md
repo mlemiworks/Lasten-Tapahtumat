@@ -1,5 +1,5 @@
 # C04: Error pages and faster database failure
-Tier: Standard · Status: in progress · Decisions: D14
+Tier: Standard · Status: done · Decisions: D14
 
 ## Context
 When the database is unreachable, the demo shows Next.js's built-in English error page,
@@ -67,7 +67,7 @@ Render check part of C04.
 | A9 | With a healthy DB, C01 A4–A9 still pass (front page, event page, login/create/edit/delete, register, 403 for non-owner, admin) | Manual, npm run dev, dev DB | Pass | Pass | After (S2): user-checked on npm run dev. Non-owner sees the edit form and gets 403 only on save: F21 |
 | A10 | /api/reset with the correct token resets and reseeds (200); a wrong token is rejected (401) | curl locally, token from .env | Pass | Pass | Running dev server (:3000, .env): correct token 200 "Database reset and reseeded.", wrong token 401. After (S2): 200 and 401 (run by user on dev server) |
 | A11 | No new errors in the browser console or server terminal during A9–A10 | Compare with baseline run | Baseline | Pass | Browser: `Cookie "__cf_bm" has been rejected for invalid domain` during image upload (Supabase Storage's Cloudflare cookie). Server terminal: not reported. After (S2): no new errors (user). Error page runs log React #441 (Suspense switched to client rendering) in the browser console; expected with a streamed server error |
-| A12 | connectionTimeoutMillis appears only in src/lib/prisma.ts; docs/must-not-change.md and .github/workflows/reset.yml unchanged | grep -r; git diff portfolio --stat on both files | 0 matches | Pass | Expected exactly 1 after (prisma.ts). must-not-change.md and reset.yml: no diff vs portfolio. After (S2): 1 match, src/lib/prisma.ts:16; no diff vs portfolio on both files |
+| A12 | connectionTimeoutMillis appears only in src/lib/prisma.ts; docs/must-not-change.md and .github/workflows/reset.yml unchanged | grep -r; git diff 6e607a7 --stat on both files (last commit before C04) | 0 matches | Pass | Expected exactly 1 after (prisma.ts). must-not-change.md and reset.yml: no diff vs portfolio. After (S2): 1 match, src/lib/prisma.ts:16; no diff vs portfolio on both files |
 | A13 | When deployed to Render, the demo passes C01 A4, A5, A6 and A9, including the first request after a cold start | Manual, live URL | Pass | Pass | First load after 15+ min idle: events shown almost immediately (no visible spin-up wait; whether Render actually slept is unverified). C01 A4, A5, A6, A9 pass on live. After (S3, 5.10.2026): user-checked on live after the deploy; first request after 15+ min idle, C01 A4, A5, A6, A9 all pass |
 
 Notes:
