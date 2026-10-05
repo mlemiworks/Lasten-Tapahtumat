@@ -38,3 +38,7 @@
 - F18: docs/codebase-map.md is a pasted exploration transcript: it opens with chat preamble ("I didn't modify any files..."), several table cells and lines are cut off mid-word ("iltering", "Maeather", "Iase Storage"), and section 1 still describes the outer Eventsforkids/ folder. Rewrite it from the code. Seen during C03 close.
 
 - F19: the commit gate's block on `--all` and path arguments (`git commit -m x file`) was not tested end to end; C03-A5 tried only `-am`, and the S2 unit tests covered `-am` and `--amend`. Add these cases when the gate is next touched (with F16, F17).
+
+- F20: `next start` (and `npm start`) loads .env.production.local over .env, so a local production build talks to the production database and production RESET_TOKEN. Pass DATABASE_URL explicitly for local production-build tests, or add a guarded script (like dev:prod in reverse). Found in C04-S1 (one run sent read-only GETs and two rejected /api/reset POSTs to production).
+
+- F21: a logged-in non-owner can open `/<id>/edit` and sees the pre-filled edit form; the 403 comes only on save (PUT in `api/events/[id]/route.ts`). `[event]/edit/page.tsx` checks only that the event exists. Check ownership (or admin) in the page and redirect or show a denial before the form renders. Found in C04-S2 (A9).

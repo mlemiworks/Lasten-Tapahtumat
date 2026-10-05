@@ -12,6 +12,8 @@ declare global {
 function createPrismaClient() {
   const adapter = new PrismaPg({
     connectionString: process.env.DATABASE_URL,
+    // pg has no connect timeout by default, so an unreachable host hangs until the OS gives up (~22 s on Windows).
+    connectionTimeoutMillis: 5000,
   });
   return new PrismaClient({ adapter });
 }

@@ -1,5 +1,32 @@
 # Progress
 
+## C04: error pages and faster database failure (`docs/changes/04-error-pages/`): in progress
+
+Branch: `feat/04-error-pages`
+Tier: Standard. Decisions: D14 (`docs/changes/04-error-pages/decisions.md`).
+
+### Done
+
+- S1: branch from portfolio, spec written (intake defaults for all five questions, listed as assumptions). F15's must-not-change deletion not carried over.
+- S1: Before filled for A3, A4, A6, A7, A8, A10, A12. Wrong port now hangs ~22 s (Windows ETIMEDOUT), not ~10 s.
+- S1: `next start` reads .env.production.local; one unguarded run reached production (read-only GETs, two /api/reset 401s, no data changed). Logged as F20; later runs pass DATABASE_URL from .env.
+- S1: manual Before: A1, A2, A5 fail (built-in English page, digest shown); A9 pass; A11 baseline noise: __cf_bm cookie warning on image upload.
+- S1: A13 Before pass: first load after idle shows events almost immediately (no visible Render spin-up); C01 A4, A5, A6, A9 pass on live. Before column complete.
+- Design: design.md written; spec Plan expanded to plan-step format (no plan.md). D14: manual S1 baseline replaces characterization tests. Retry uses Next 16's `retry()` (re-fetches), not `reset()`.
+- Design: A12 grep excludes docs/, node_modules/, .next/ (the spec itself contains the option name).
+
+- S2: error.tsx, global-error.tsx and the 5 s pg connect timeout added; Q2 updated (still open). A1–A12 After filled, all pass.
+- S2: global-error.tsx's plain `<a href="/">` (design) needs an eslint-disable for no-html-link-for-pages; without it lint is 3024 vs 3022.
+- S2: React #441 in the browser console on the error page (Suspense switches to client rendering after the streamed server error); expected, not from app code.
+- S2: A10 run by me (Claude's /api/reset call was blocked by the auto-mode classifier). F21 added: non-owner sees the edit form, 403 only on save.
+- S2: /sdd-validate: A7, A8, A12 rerun; A1, A5, A9, A11 rechecked by me, all pass; no Before/After differences needing a decision. A13 not yet testable (S3).
+
+### Next
+
+- /sdd-review S2, commit, then S3.
+- After C04: next change sets up automated testing (F4), so the error pages and C01 checks stop relying on manual runs (Risk 5, D14).
+
+
 ## C03: workflow as Claude Code skills and a commit gate (`docs/changes/03-skills-workflow/`): complete
 
 Branch: `chore/03-skills-workflow`
