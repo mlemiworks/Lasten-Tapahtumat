@@ -7,6 +7,7 @@ import {
   updateEvent,
 } from '@/src/lib/dataFetching';
 import { CATEGORIES } from '@/src/lib/categories';
+import { IMG_URL_ERROR, validImgUrl } from '@/src/lib/imgUrl';
 import { ADMIN_EMAIL } from '@/src/app/admin/page';
 
 // Shared auth + ownership guard used by both DELETE and PUT
@@ -85,6 +86,11 @@ export async function PUT(
     );
   }
 
+  const imgUrl = validImgUrl(body.imgUrl);
+  if (!imgUrl) {
+    return NextResponse.json({ error: IMG_URL_ERROR }, { status: 400 });
+  }
+
   // 'as string[]' widens the type from Category[] to string[] so that
   // includes() accepts body.category which is typed as string | undefined
   const validKeys = CATEGORIES.map((c) => c.key) as string[];
@@ -102,7 +108,7 @@ export async function PUT(
     time: body.time?.trim() ?? null,
     location: body.location?.trim() ?? '',
     description: body.description?.trim() ?? null,
-    imgUrl: body.imgUrl?.trim() || result.event.imgUrl,
+    imgUrl,
     category,
     city: body.city?.trim() || undefined,
     age: body.age?.trim() || null,

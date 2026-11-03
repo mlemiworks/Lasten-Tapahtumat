@@ -24,7 +24,13 @@ export async function createEvent(
   extra: Record<string, unknown> = {},
 ): Promise<string> {
   const response = await page.request.post('/api/create-event', {
-    data: { title, date: '2030-01-15', city: 'Helsinki', ...extra },
+    data: {
+      title,
+      date: '2030-01-15',
+      city: 'Helsinki',
+      imgUrl: 'music',
+      ...extra,
+    },
   });
   expect(response.status()).toBe(200);
   const { id } = (await response.json()) as { id: string };

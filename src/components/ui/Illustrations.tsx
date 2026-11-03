@@ -1,17 +1,9 @@
 import React from 'react';
+import type { ILLUSTRATION_IDS } from '@/src/lib/imgUrl';
 
 /* ---------- Types ---------- */
 
-export type IllustrationId =
-  | 'music'
-  | 'sirkus'
-  | 'taide'
-  | 'luonto'
-  | 'teatteri'
-  | 'liikunta'
-  | 'savi'
-  | 'piano'
-  | 'vesi';
+export type IllustrationId = (typeof ILLUSTRATION_IDS)[number];
 
 type IllustrationItem = {
   id: IllustrationId;

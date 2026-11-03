@@ -21,6 +21,7 @@ test('log in, create, see in dashboard, edit, delete, log out', async ({
     await page.goto('/create-event');
     await page.getByTestId('event-title-input').fill(title);
     await page.getByTestId('event-date-input').fill('2030-01-15');
+    await page.getByTestId('illustration-option-music').click();
     await page.getByTestId('event-form-submit').click();
     await expect(page).toHaveURL(/\/c[a-z0-9]{20,}$/);
     id = new URL(page.url()).pathname.slice(1);

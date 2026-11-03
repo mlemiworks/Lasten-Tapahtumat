@@ -1,5 +1,24 @@
 # Progress
 
+## C07: required image or illustration (`docs/changes/07-required-image/`): in progress
+
+Branch: `feat/07-required-image`
+Tier: Standard. Decisions: D15 (`docs/changes/07-required-image/decisions.md`).
+
+### Done
+
+- S1: branch from portfolio, spec written (F5). Intake: Q1 revised by me: valid imgUrl = illustration ID, `/testImages/` path or own bucket URL (no other http(s) URLs, common practice on event sites); Q2 PUT rejects too; Q3 no placeholder conversion (edits of placeholder events get 400); Q4, Q5 defaults.
+- S1: Before filled: A1, A3, A6, A8, A10, A15 fail (all bad values 200 on POST and PUT, form saves placehold.co, no `*`, placeholder live); A2, A4, A5, A9, A11–A14 pass (26 + 3, 3 of 3 runs; build 0, tsc 0, lint 8); A7 n/a. A8 and A15 run by me (upload works in dev and live).
+- S1: A1–A4, A6 measured with a temporary probe spec (logs only, deleted after the run). A1 wording corrected from "5 of 5" to "6 of 6" (it lists 6 cases; spec not yet committed, so no D#).
+- Design: design.md written, plan inside it (S2 rule + API, S3 form, S4 docs + deploy). Rule in `src/lib/imgUrl.ts`; `IllustrationId` derives from its ID list; bucket prefix from `NEXT_PUBLIC_SUPABASE_URL` (literal read, trailing `/` stripped, unset → reject); a prefix needs at least one character after it (my approval). New tests in `image-rule.spec.ts`, which reads the prefix from `.env` itself (env.ts unchanged, A12). D15: the C05 suite is the safety net, no characterization step.
+
+- S2: `src/lib/imgUrl.ts` (rule, IDs, message), `IllustrationId` derived from it, POST and PUT check `imgUrl` (placeholder and keep-old fallback removed), `helpers.createEvent` default `imgUrl: 'music'`, event-crud picks an illustration, new `image-rule.spec.ts` (12 tests: A1–A4, A9). `npm run test:e2e`: 38 (26 + 12 new) + 3 pass, exit 0, 1 run. A1–A5, A7, A9, A10, A12–A14 After filled, all pass; A11 waits for the 3 runs in S4.
+- S2: local choices: new spec uses `:visible` locators on `event-media` (first run hit the F24-style hidden duplicate: 2 svg elements); `import type` for `ILLUSTRATION_IDS` in Illustrations.tsx (types only); the dev server on :3000 had to be stopped first (dev lock).
+
+### Next
+
+- /sdd-step S3: form check and required marker.
+
 ## C06: flaky locator fix (`docs/changes/06-flaky-locator/`): complete
 
 Branch: `fix/06-flaky-locator`

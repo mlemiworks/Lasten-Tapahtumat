@@ -3,9 +3,8 @@ import { getServerSession } from 'next-auth/next';
 import { authOptions } from '@/src/lib/auth';
 import { createEvent } from '@/src/lib/dataFetching';
 import { CATEGORIES } from '@/src/lib/categories';
+import { IMG_URL_ERROR, validImgUrl } from '@/src/lib/imgUrl';
 import type { Category } from '@/src/types/types';
-
-const PLACEHOLDER_IMAGE = 'https://placehold.co/600x400';
 
 export async function POST(request: NextRequest) {
   // getServerSession reads the JWT cookie on the server to verify the user is
@@ -38,6 +37,11 @@ export async function POST(request: NextRequest) {
     );
   }
 
+  const imgUrl = validImgUrl(body.imgUrl);
+  if (!imgUrl) {
+    return NextResponse.json({ error: IMG_URL_ERROR }, { status: 400 });
+  }
+
   // Validate category against the known list — reject anything outside it
   // Widened to string[] so .includes() accepts the plain string from the request body.
   // Without this, TypeScript infers Category[] and rejects string arguments.
@@ -52,8 +56,7 @@ export async function POST(request: NextRequest) {
     time:        body.time?.trim() || null,
     location:    body.location?.trim() ?? '',
     description: body.description?.trim() || null,
-    // || because we also want the placeholder when imgUrl is an empty string
-    imgUrl:      body.imgUrl?.trim() || PLACEHOLDER_IMAGE,
+    imgUrl,
     // category is validated above; default to '' if user skipped it
     category:    category ?? '',
     // city and age are optional in the form; store null when absent
