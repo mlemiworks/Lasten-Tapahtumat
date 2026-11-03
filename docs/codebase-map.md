@@ -63,7 +63,7 @@ Pages:
 - Images in other places:
   - public/testImages/ (local files)
   - inline SVG illustrations in ui/Illustrations.tsx
-  - the placehold.co placeholder used when an event has no image
+  - no placeholder: `imgUrl` is required and checked by `validImgUrl` in src/lib/imgUrl.ts (C07)
 - External APIs, all called from the browser:
   - Nominatim, to geocode the city in LocationPicker
   - OpenStreetMap tiles

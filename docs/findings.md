@@ -8,7 +8,7 @@
 
 - F4: portfolio-tests is stale (missing the lat/lng map feature); tests not run in a while; decide later whether to revive the tests on portfolio. Resolved by C05 (new Playwright suite on portfolio; portfolio-tests not merged).
 
-- F5: When user doesn't select any image for their event, the image just shows empty placeholder with text 600x400.
+- F5: When user doesn't select any image for their event, the image just shows empty placeholder with text 600x400. Resolved by C07 (imgUrl required, validated in the API and the form).
 
 - F6: The reseeding always makes the events have future dates. Might be worth looking into, what happens when an event date has passed.
 

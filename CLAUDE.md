@@ -106,7 +106,7 @@ See `docs/codebase-map.md` for routes, API routes and data flow.
 - Dates and times are stored as strings (date `YYYY-MM-DD`).
 - `location` = venue name; `city` = city name. Separate fields.
 - `Event.createdBy` references `User.email` (not id). Seeded events have no `createdBy`.
-- `imgUrl`: values starting with `http://`, `https://` or `/testImages` render as `<img>`; everything else is treated as an `IllustrationId`.
+- `imgUrl`: required on create and update. `validImgUrl` in `src/lib/imgUrl.ts` accepts only an illustration ID, a `/testImages/` path or a URL under our own Supabase bucket (`NEXT_PUBLIC_SUPABASE_URL`); anything else gets 400. Rendering is unchanged: `http://`, `https://` and `/testImages` render as `<img>`, everything else as an `IllustrationId`.
 - Valid illustration IDs: `music`, `sirkus`, `taide`, `luonto`, `teatteri`, `liikunta`, `savi`, `piano`, `vesi`.
 - Admin = session email `admin@example.fi`. Defined in `src/app/admin/page.tsx`, also hardcoded in `header.tsx` and `event-actions.tsx` (UI only). The server-side checks are in `admin/page.tsx` and `api/events/[id]/route.ts`.
 - Middleware (deprecated name in Next 16, not yet renamed) protects: `/create-event`, `/:path*/edit`, `/dashboard`, `/admin`.

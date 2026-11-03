@@ -18,10 +18,12 @@ Tier: Standard. Decisions: D15 (`docs/changes/07-required-image/decisions.md`).
 - S3: `event-form.tsx`: `required` on the image Field (red `*`), client check with `validImgUrl` before `setLoading` (no fetch), `data-testid="event-form-error"` on the error line. New form test in `image-rule.spec.ts`. `npm run test:e2e`: 39 + 3 pass, exit 0. build 0, tsc 0, lint 8. A6 After filled (pass); A8 manual by me; A11 waits for S4.
 - S3: local choices: the check sits before `setLoading`; the error `<p>` is now a multi-line JSX block; the test counts requests with `page.on('request')`.
 
+- S4: CLAUDE.md Gotchas `imgUrl` line, codebase-map placeholder line, F5 resolved. A11 After filled: `npm run test:e2e` 39 + 3 pass, 3 of 3 runs, exit 0 (the DatabaseNotReachable lines in the output come from the db-error run, which refuses the connection on purpose). A8 pass (run by me, dev): `*` shows, upload saves and shows.
+
 ### Next
 
-- Me: A8 manual in dev (`*` shows, upload saves).
-- /sdd-step S4: docs, 3 suite runs, deploy.
+- Me: fast-forward, deploy on Render, run A15.
+- /sdd-review S4, then commit.
 
 ## C06: flaky locator fix (`docs/changes/06-flaky-locator/`): complete
 
