@@ -7,7 +7,7 @@ Guidance for Claude Code when working in this repository (Lasten tapahtumat, a N
 All in `docs/` (see decisions D5, D11, D12):
 
 - `docs/workflow.md`: the method: phases, skills, commit gate, rigor tiers, criteria format, decision threshold, naming.
-- `docs/changes/<NN-slug>/`: spec.md (and design.md and plan.md when present) and decisions.md for one change. **The current change is: C06, `docs/changes/06-flaky-locator/`.**
+- `docs/changes/<NN-slug>/`: spec.md (and design.md and plan.md when present) and decisions.md for one change. **The current change is: none.**
 - Decision logs (D10). IDs are one sequence across all files: check every decisions.md for the next free number. Append only; mark superseded entries, never delete them.
   - `docs/decisions.md`: project-wide decisions (D1, D5, D10, ...).
   - `docs/changes/<NN-slug>/decisions.md`: decisions for that change only (C01: `docs/changes/01-security-patch/decisions.md`, D2–D4, D6–D9).
@@ -139,6 +139,8 @@ When adding tests, add `data-testid` attributes to:
 - Navigation elements
 
 Use kebab-case describing what the element _is_: `event-card`, `category-filter`. Skip decorative or layout wrappers.
+
+Actions (`click`, `fill`, `selectOption`) on server-rendered pages need `visibleTestId(page, id)` from `tests/e2e/helpers.ts`: dev-mode streaming briefly leaves a hidden duplicate, and a bare `getByTestId` fails strict mode (F24, C06).
 
 ## Comments
 

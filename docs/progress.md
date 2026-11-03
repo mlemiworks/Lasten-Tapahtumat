@@ -1,6 +1,6 @@
 # Progress
 
-## C06: flaky locator fix (`docs/changes/06-flaky-locator/`): in progress
+## C06: flaky locator fix (`docs/changes/06-flaky-locator/`): complete
 
 Branch: `fix/06-flaky-locator`
 Tier: Light. Decisions: none.
@@ -18,9 +18,13 @@ Tier: Light. Decisions: none.
 - Validate: all seven criteria rerun on bd7e4da, results equal the S2 After column: A1 5 of 5 runs (26 + 3), A2 61 of 61, A3 0 outside the list, A4 26 + 3 and 0 `expect` lines, A5 8 files (CLAUDE.md, docs, 4 test files), A6 build 0, tsc 0, lint 8, A7 no diff. No manual criteria, no differences needing a decision.
 - Validate: review notes applied: spec status back to "in progress" until close; F24 wording says "the 7 ... listed in C06".
 
+- Validate docs committed as 6eb21d7 through the gate.
+- Close: /sdd-close. Code reached portfolio by fast-forward (no merge commit): bd7e4da (S2), 6eb21d7 (validate docs). No deploy (tests only). F24 resolved; no new findings or open questions. CLAUDE.md current change set to none.
+- Close: CLAUDE.md Testing gained the `visibleTestId` rule for actions on server-rendered pages; codebase-map.md and must-not-change.md unchanged. A5 After cell now lists findings.md (review note). Process notes: no answers.
+
 ### Next
 
-- `/sdd-review` on the validate docs, commit, then `/sdd-close`.
+- Next change: not chosen. Open backlog worth considering: F23 (flaky first request, corrupt .next), F22 (CI for the suite), F21 (non-owner sees the edit form).
 
 ## C05: automated end-to-end tests (`docs/changes/05-e2e-tests/`): complete
 

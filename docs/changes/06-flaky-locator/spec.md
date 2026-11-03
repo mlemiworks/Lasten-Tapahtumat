@@ -1,5 +1,5 @@
 # C06: Flaky locator fix
-Tier: Light · Status: in progress · Decisions: none
+Tier: Light · Status: done · Decisions: none
 
 ## Context
 `npm run test:e2e` failed once in C05 validate on browse.spec.ts:52: `page-button-2` matched 2
@@ -47,7 +47,7 @@ investigated; stability shown by 5 full runs plus 10 repeats of browse.spec.ts.
 | A2 | `npx playwright test browse.spec.ts --repeat-each=10` passes. Tolerance: 0 failures | run | Fail: 5 of 61 failed, all `page-button-2` strict mode (5 of 10 repeats of browse.spec.ts:52) | Pass: 61 of 61 | 61 = setup + 6 tests × 10. Validate rerun on bd7e4da: 61 of 61 again |
 | A3 | Bare action locators in tests/e2e/ (`grep -nE "getByTestId\([^)]*\)(\.filter\([^)]*\))?\.(click\|fill\|selectOption)"`) match only register.spec.ts, event-crud.spec.ts:15–17, :33–34, admin.spec.ts:39 (scoped under visible rows) and db-error/error-pages.spec.ts:42 | grep | Fail: 26 matches; 7 outside the allowed list (the 7 targets) | Pass: 0 outside the list | The 5 event-crud form lines moved (15–17, 33–34 → 22–24, 40–41) because the import grew by 7 lines; same lines |
 | A4 | Same test titles and count (26 + 3); no `expect` line removed or changed in the diff | `--list`, diff | 26 tests in 9 files (main, incl. setup) + 3 in 1 file (db-error) | Pass: same counts; 0 `expect` lines in the diff | |
-| A5 | `git diff portfolio --stat` lists only tests/e2e/*.ts, docs/ and CLAUDE.md (current change line) | git | Pass: CLAUDE.md (current change line); docs/changes/06-flaky-locator/ untracked | Pass: CLAUDE.md, docs/ (progress.md, spec), browse, event-crud, event-details specs and helpers.ts | |
+| A5 | `git diff portfolio --stat` lists only tests/e2e/*.ts, docs/ and CLAUDE.md (current change line) | git | Pass: CLAUDE.md (current change line); docs/changes/06-flaky-locator/ untracked | Pass: CLAUDE.md, docs/ (progress.md, findings.md, spec), browse, event-crud, event-details specs and helpers.ts | |
 | A6 | build exit 0, tsc exit 0, lint ≤ 8 (C05 result) | run | Pass: build 0, tsc 0, lint 8 (5 errors, 3 warnings) | Pass: build 0, tsc 0, lint 8 (5 errors, 3 warnings), same as baseline | |
 | A7 | No diff in src/, playwright*.config.ts, tests/e2e/env.ts, reset.setup.ts, .github/ | git | Pass: no diff | Pass: no diff | |
 
