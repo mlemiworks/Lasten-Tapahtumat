@@ -40,12 +40,12 @@ test.describe('browse events', () => {
   });
 
   test('category pill narrows the list', async ({ page }) => {
-    await page.getByTestId('category-pill-musiikki').click();
+    await visibleTestId(page, 'category-pill-musiikki').click();
     await expect(page.getByTestId('event-card')).toHaveCount(1);
     await expect(page.getByTestId('event-category-badge')).toHaveText([
       'Musiikki',
     ]);
-    await page.getByTestId('category-pill-all').click();
+    await visibleTestId(page, 'category-pill-all').click();
     await expect(page.getByTestId('event-card')).toHaveCount(9);
   });
 
@@ -55,7 +55,7 @@ test.describe('browse events', () => {
     const id = await createEvent(page, uniqueTitle('E2E sivutus'));
     try {
       await page.goto('/');
-      await page.getByTestId('page-button-2').click();
+      await visibleTestId(page, 'page-button-2').click();
       await expect(page.getByTestId('event-card')).toHaveCount(1);
     } finally {
       await deleteEvent(page, id);

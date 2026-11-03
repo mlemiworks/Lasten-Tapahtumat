@@ -1,5 +1,23 @@
 # Progress
 
+## C06: flaky locator fix (`docs/changes/06-flaky-locator/`): complete
+
+Branch: `fix/06-flaky-locator`
+Tier: Light. Decisions: none.
+
+### Done
+
+- S1: branch from portfolio, spec written (F24). Intake: defaults for all five questions (all 7 bare action locators, no root-cause work, 5 full runs + 10 repeats, F23 out, test edits allowed with assertions unchanged).
+- S1: Before filled: A1 fail (runs 1–2 failed on `page-button-2`, runs 3–5 pass), A2 fail (5 of 10 repeats of browse.spec.ts:52), A3 26 matches, A4 26 + 3 tests, A6 pass (build 0, tsc 0, lint 8), A7 pass. The flake reproduces reliably with `--repeat-each`.
+- S1: wording corrections found at baseline, approved by me (spec not yet committed, so no D#): A3 also allows admin.spec.ts:39 (already under visible rows) and db-error/error-pages.spec.ts:42; A5 also allows CLAUDE.md (current change line). Before results unchanged: A3 now fails only on the 7 targets, A5 passes.
+
+- S2: 7 bare action locators switched to `visibleTestId` in browse.spec.ts (3), event-details.spec.ts, event-crud.spec.ts (2) and helpers.ts `logout`; imports added to the two specs. 0 `expect` lines changed, 26 + 3 tests as before. A1–A7 After filled, all pass: A1 5 of 5 runs green, A2 61 of 61 (baseline 5 failed), build 0, tsc 0, lint 8. F24 resolved.
+- S2: local choice: the event-crud import became multi-line (prettier width), so its form-field lines moved from 15–17, 33–34 to 22–24, 40–41; same lines, A3 note. Stopped at the dev duplicate's cause (Scope Out); the stale hidden copy is still not investigated.
+
+### Next
+
+- `/sdd-review`, then commit, then `/sdd-close`.
+
 ## C05: automated end-to-end tests (`docs/changes/05-e2e-tests/`): complete
 
 Branch: `feat/05-e2e-tests`

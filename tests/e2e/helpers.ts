@@ -13,7 +13,7 @@ export const SEED_USER = { email: 'testi@example.com', password: 'testi123' };
 export const ADMIN_EMAIL = 'admin@example.fi';
 
 export async function logout(page: Page) {
-  await page.getByTestId('logout-button').click();
+  await visibleTestId(page, 'logout-button').click();
   await expect(page.getByTestId('login-button')).toBeVisible();
 }
 

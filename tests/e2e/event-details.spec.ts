@@ -1,8 +1,9 @@
 import { test, expect, type Page } from '@playwright/test';
+import { visibleTestId } from './helpers';
 
 async function openEvent(page: Page, title: string) {
   await page.goto('/');
-  await page.getByTestId('event-card').filter({ hasText: title }).click();
+  await visibleTestId(page, 'event-card').filter({ hasText: title }).click();
   await expect(page.getByRole('heading', { level: 1 })).toHaveText(title);
 }
 

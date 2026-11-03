@@ -1,5 +1,12 @@
 import { test, expect } from '@playwright/test';
-import { SEED_USER, deleteEvent, login, logout, uniqueTitle } from './helpers';
+import {
+  SEED_USER,
+  deleteEvent,
+  login,
+  logout,
+  uniqueTitle,
+  visibleTestId,
+} from './helpers';
 
 test('log in, create, see in dashboard, edit, delete, log out', async ({
   page,
@@ -28,7 +35,7 @@ test('log in, create, see in dashboard, edit, delete, log out', async ({
     ).toHaveCount(1);
 
     await page.goto(`/${id}`);
-    await page.getByTestId('event-edit-link').click();
+    await visibleTestId(page, 'event-edit-link').click();
     await expect(page).toHaveURL(`/${id}/edit`);
     await page.getByTestId('event-title-input').fill(edited);
     await page.getByTestId('event-form-submit').click();
@@ -36,7 +43,7 @@ test('log in, create, see in dashboard, edit, delete, log out', async ({
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(edited);
 
     page.once('dialog', (dialog) => dialog.accept());
-    await page.getByTestId('event-delete-button').click();
+    await visibleTestId(page, 'event-delete-button').click();
     await expect(page).toHaveURL(/\/$/);
     await expect(
       page.getByTestId('event-card').filter({ hasText: title }),
