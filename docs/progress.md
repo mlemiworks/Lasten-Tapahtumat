@@ -1,6 +1,6 @@
 # Progress
 
-## C06: flaky locator fix (`docs/changes/06-flaky-locator/`): complete
+## C06: flaky locator fix (`docs/changes/06-flaky-locator/`): in progress
 
 Branch: `fix/06-flaky-locator`
 Tier: Light. Decisions: none.
@@ -14,9 +14,13 @@ Tier: Light. Decisions: none.
 - S2: 7 bare action locators switched to `visibleTestId` in browse.spec.ts (3), event-details.spec.ts, event-crud.spec.ts (2) and helpers.ts `logout`; imports added to the two specs. 0 `expect` lines changed, 26 + 3 tests as before. A1–A7 After filled, all pass: A1 5 of 5 runs green, A2 61 of 61 (baseline 5 failed), build 0, tsc 0, lint 8. F24 resolved.
 - S2: local choice: the event-crud import became multi-line (prettier width), so its form-field lines moved from 15–17, 33–34 to 22–24, 40–41; same lines, A3 note. Stopped at the dev duplicate's cause (Scope Out); the stale hidden copy is still not investigated.
 
+- S2: committed as bd7e4da through the gate (review approved on the staged diff).
+- Validate: all seven criteria rerun on bd7e4da, results equal the S2 After column: A1 5 of 5 runs (26 + 3), A2 61 of 61, A3 0 outside the list, A4 26 + 3 and 0 `expect` lines, A5 8 files (CLAUDE.md, docs, 4 test files), A6 build 0, tsc 0, lint 8, A7 no diff. No manual criteria, no differences needing a decision.
+- Validate: review notes applied: spec status back to "in progress" until close; F24 wording says "the 7 ... listed in C06".
+
 ### Next
 
-- `/sdd-review`, then commit, then `/sdd-close`.
+- `/sdd-review` on the validate docs, commit, then `/sdd-close`.
 
 ## C05: automated end-to-end tests (`docs/changes/05-e2e-tests/`): complete
 

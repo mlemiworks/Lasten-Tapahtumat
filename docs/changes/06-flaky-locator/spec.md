@@ -1,5 +1,5 @@
 # C06: Flaky locator fix
-Tier: Light · Status: done · Decisions: none
+Tier: Light · Status: in progress · Decisions: none
 
 ## Context
 `npm run test:e2e` failed once in C05 validate on browse.spec.ts:52: `page-button-2` matched 2
@@ -43,8 +43,8 @@ investigated; stability shown by 5 full runs plus 10 repeats of browse.spec.ts.
 ## Acceptance
 | # | Criterion | How verified | Before | After | Notes |
 |---|---|---|---|---|---|
-| A1 | `npm run test:e2e` passes 5 runs in a row: 26 + 3 tests, exit 0. Tolerance: 0 failures | run 5× | Fail: runs 1–2 failed (25/26, browse.spec.ts:52 `page-button-2` strict mode, 2 elements; db-error run skipped), runs 3–5 pass (26 + 3) | Pass: 5 of 5 runs, 26 + 3 each, exit 0 | db-error log shows DatabaseNotReachable by design |
-| A2 | `npx playwright test browse.spec.ts --repeat-each=10` passes. Tolerance: 0 failures | run | Fail: 5 of 61 failed, all `page-button-2` strict mode (5 of 10 repeats of browse.spec.ts:52) | Pass: 61 of 61 | 61 = setup + 6 tests × 10 |
+| A1 | `npm run test:e2e` passes 5 runs in a row: 26 + 3 tests, exit 0. Tolerance: 0 failures | run 5× | Fail: runs 1–2 failed (25/26, browse.spec.ts:52 `page-button-2` strict mode, 2 elements; db-error run skipped), runs 3–5 pass (26 + 3) | Pass: 5 of 5 runs, 26 + 3 each, exit 0 | db-error log shows DatabaseNotReachable by design. Validate rerun on bd7e4da: 5 of 5 pass again |
+| A2 | `npx playwright test browse.spec.ts --repeat-each=10` passes. Tolerance: 0 failures | run | Fail: 5 of 61 failed, all `page-button-2` strict mode (5 of 10 repeats of browse.spec.ts:52) | Pass: 61 of 61 | 61 = setup + 6 tests × 10. Validate rerun on bd7e4da: 61 of 61 again |
 | A3 | Bare action locators in tests/e2e/ (`grep -nE "getByTestId\([^)]*\)(\.filter\([^)]*\))?\.(click\|fill\|selectOption)"`) match only register.spec.ts, event-crud.spec.ts:15–17, :33–34, admin.spec.ts:39 (scoped under visible rows) and db-error/error-pages.spec.ts:42 | grep | Fail: 26 matches; 7 outside the allowed list (the 7 targets) | Pass: 0 outside the list | The 5 event-crud form lines moved (15–17, 33–34 → 22–24, 40–41) because the import grew by 7 lines; same lines |
 | A4 | Same test titles and count (26 + 3); no `expect` line removed or changed in the diff | `--list`, diff | 26 tests in 9 files (main, incl. setup) + 3 in 1 file (db-error) | Pass: same counts; 0 `expect` lines in the diff | |
 | A5 | `git diff portfolio --stat` lists only tests/e2e/*.ts, docs/ and CLAUDE.md (current change line) | git | Pass: CLAUDE.md (current change line); docs/changes/06-flaky-locator/ untracked | Pass: CLAUDE.md, docs/ (progress.md, spec), browse, event-crud, event-details specs and helpers.ts | |
