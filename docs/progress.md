@@ -15,9 +15,13 @@ Tier: Standard. Decisions: D15 (`docs/changes/07-required-image/decisions.md`).
 - S2: `src/lib/imgUrl.ts` (rule, IDs, message), `IllustrationId` derived from it, POST and PUT check `imgUrl` (placeholder and keep-old fallback removed), `helpers.createEvent` default `imgUrl: 'music'`, event-crud picks an illustration, new `image-rule.spec.ts` (12 tests: A1–A4, A9). `npm run test:e2e`: 38 (26 + 12 new) + 3 pass, exit 0, 1 run. A1–A5, A7, A9, A10, A12–A14 After filled, all pass; A11 waits for the 3 runs in S4.
 - S2: local choices: new spec uses `:visible` locators on `event-media` (first run hit the F24-style hidden duplicate: 2 svg elements); `import type` for `ILLUSTRATION_IDS` in Illustrations.tsx (types only); the dev server on :3000 had to be stopped first (dev lock).
 
+- S3: `event-form.tsx`: `required` on the image Field (red `*`), client check with `validImgUrl` before `setLoading` (no fetch), `data-testid="event-form-error"` on the error line. New form test in `image-rule.spec.ts`. `npm run test:e2e`: 39 + 3 pass, exit 0. build 0, tsc 0, lint 8. A6 After filled (pass); A8 manual by me; A11 waits for S4.
+- S3: local choices: the check sits before `setLoading`; the error `<p>` is now a multi-line JSX block; the test counts requests with `page.on('request')`.
+
 ### Next
 
-- /sdd-step S3: form check and required marker.
+- Me: A8 manual in dev (`*` shows, upload saves).
+- /sdd-step S4: docs, 3 suite runs, deploy.
 
 ## C06: flaky locator fix (`docs/changes/06-flaky-locator/`): complete
 

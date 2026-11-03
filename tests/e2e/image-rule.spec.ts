@@ -1,7 +1,13 @@
 import { readFileSync } from 'node:fs';
 import { parseEnv } from 'node:util';
 import { test, expect } from '@playwright/test';
-import { SEED_USER, deleteEvent, login, uniqueTitle } from './helpers';
+import {
+  SEED_USER,
+  deleteEvent,
+  login,
+  uniqueTitle,
+  visibleTestId,
+} from './helpers';
 import { IMG_URL_ERROR, validImgUrl } from '../../src/lib/imgUrl';
 
 // env.ts stays unchanged, so the public Supabase URL is read here.
@@ -107,6 +113,23 @@ test.describe('imgUrl rule in the APIs', () => {
       await deleteEvent(page, id);
     }
   });
+});
+
+test('create form without an image shows the error and sends nothing', async ({
+  page,
+}) => {
+  await login(page, SEED_USER.email, SEED_USER.password);
+  let posts = 0;
+  page.on('request', (req) => {
+    if (req.url().includes('/api/create-event')) posts++;
+  });
+  await page.goto('/create-event');
+  await page.getByTestId('event-title-input').fill(uniqueTitle('E2E kuva lomake'));
+  await page.getByTestId('event-date-input').fill('2030-01-15');
+  await visibleTestId(page, 'event-form-submit').click();
+  await expect(visibleTestId(page, 'event-form-error')).toHaveText(IMG_URL_ERROR);
+  expect(posts).toBe(0);
+  await expect(page).toHaveURL(/\/create-event$/);
 });
 
 test('every seeded and reset imgUrl passes the rule', () => {

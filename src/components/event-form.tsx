@@ -9,6 +9,7 @@ import { Textarea } from './ui/Textarea';
 import { Button } from './ui/Button';
 import { IllustrationPicker } from './ui/Illustrations';
 import { ImageUploader } from './ui/ImageUploader';
+import { IMG_URL_ERROR, validImgUrl } from '../lib/imgUrl';
 // Leaflet accesses `window` on import, so it can't run during SSR.
 // dynamic with ssr:false defers the import to the browser only.
 import dynamic from 'next/dynamic';
@@ -109,6 +110,10 @@ export default function EventForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+    if (validImgUrl(fields.imgUrl) === null) {
+      setError(IMG_URL_ERROR);
+      return;
+    }
     setLoading(true);
     try {
       await onSubmit(fields);
@@ -233,7 +238,7 @@ export default function EventForm({
       </Field>
 
       {/* Image picker — two tabs: pre-made illustrations or own uploaded photo */}
-      <Field label="Valitse kuvitus">
+      <Field label="Valitse kuvitus" required>
         {/* Tab bar — plain buttons styled as pills, matching the design tokens */}
         <div className="flex gap-2 mb-3" role="tablist" data-testid="image-tab-bar">
           <button
@@ -288,7 +293,11 @@ export default function EventForm({
         )}
       </Field>
 
-      {error && <p className="text-red-600 text-sm">{error}</p>}
+      {error && (
+        <p className="text-red-600 text-sm" data-testid="event-form-error">
+          {error}
+        </p>
+      )}
 
       <Button
         type="submit"
