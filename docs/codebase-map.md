@@ -10,6 +10,7 @@ prisma.config.ts Prisma CLI config (DIRECT_URL)
 .github/workflows/reset.yml GitHub Actions cron that calls /api/reset every 6 hours
 public/ testImages/\*.jpg, default SVGs, illustrations.jsx (?)
 dev-data/ old db.json (gitignored, kept for reference)
+tests/e2e/ Playwright suite (C05): `npm run test:e2e`, wipes and reseeds the dev DB
 src/
 middleware.ts NextAuth route guard
 lib/ prisma.ts (singleton), dataFetching.ts (data layer), auth.ts (NextAuth config),
@@ -132,7 +133,7 @@ Couldn't determine:
 
 - Whether the Render hosting setup also has its own cron job.
 - What production users see when the database is down.
-- What the stale Playwright output in playwright-report/ and t
+- What the stale Playwright output in playwright-report/ and test-results/ was for. Closed by C05: the C05 runs regenerated both folders, nothing stale is left.
 
 7. Where CLAUDE.md, README and ROADMAP don't match the code
 
@@ -144,9 +145,9 @@ Couldn't determine:
 ├──────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
 │ CLAUDE.md: "Seeded events have no createdBy" │ True. │
 ├──────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ CLAUDE.md: Playwright e2e and data-testid │ There is no @playwright/test dependency, no config and no spec files on this branch. data-testid │
-│ conventions │ appears only in event-form, Illustrations and ImageUploader, not on event cards, filters and so │
-│ │ on. (findings.md says the tests are on the stale portfolio-tests branch.) │
+│ CLAUDE.md: Playwright e2e and data-testid │ Resolved by C05: @playwright/test, two configs and tests/e2e/ exist; data-testid is on cards, filters, │
+│ conventions │ header, auth forms, dashboard, admin and error pages (9 src/ files, 44 insertions). │
+│ │ portfolio-tests was deleted after the tests were ported. │
 ├──────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
 │ CLAUDE.md: price stored as "5", "0", null │ Code comments and the detail page also handle "5€" and "Vapaa pääsy" (free entry). │
 ├──────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤

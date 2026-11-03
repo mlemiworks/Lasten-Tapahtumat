@@ -1,5 +1,5 @@
 # C05: Automated end-to-end tests
-Tier: Standard · Status: in progress · Decisions: none
+Tier: Standard · Status: done · Decisions: none
 
 ## Context
 The C01 regression checks (A4–A10) and the C04 error-page checks are run by hand every
