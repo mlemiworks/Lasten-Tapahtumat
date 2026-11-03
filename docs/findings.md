@@ -6,7 +6,7 @@
 
 - F3: portfolio branch is the demo version deployed on render. Master is the future "real product". Changes in portfolio might cause drift from master, if not kept up to date.
 
-- F4: portfolio-tests is stale (missing the lat/lng map feature); tests not run in a while; decide later whether to revive the tests on portfolio.
+- F4: portfolio-tests is stale (missing the lat/lng map feature); tests not run in a while; decide later whether to revive the tests on portfolio. Resolved by C05 (new Playwright suite on portfolio; portfolio-tests not merged).
 
 - F5: When user doesn't select any image for their event, the image just shows empty placeholder with text 600x400.
 
@@ -21,7 +21,7 @@
 - F10: ESLint lints non-source folders (generated Prisma client, probably .next/, test reports, public/illustrations.jsx). Measure per folder and add ignores to eslint.config.mjs.
   Also identify the one extra warning that appeared after the next/eslint-config-next 16.3.8 upgrade (3022 vs the 3021 baseline). Accepted for Change 01 by D9 (`docs/changes/01-security-patch/decisions.md`); compare `eslint -f json` output per file against 16.0.8 on `portfolio`.
 
-- F11: if reset token for both prod and dev is same, leaked dev token may be used to reset prod
+- F11: if reset token for both prod and dev is same, leaked dev token may be used to reset prod. Resolved by C05 (dev token differs from production's; live POST with the dev token returns 401, A12).
 
 - F12: consider Dependabot or a similar tool for security update alerts.
 
@@ -42,3 +42,9 @@
 - F20: `next start` (and `npm start`) loads .env.production.local over .env, so a local production build talks to the production database and production RESET_TOKEN. Pass DATABASE_URL explicitly for local production-build tests, or add a guarded script (like dev:prod in reverse). Found in C04-S1 (one run sent read-only GETs and two rejected /api/reset POSTs to production).
 
 - F21: a logged-in non-owner can open `/<id>/edit` and sees the pre-filled edit form; the 403 comes only on save (PUT in `api/events/[id]/route.ts`). `[event]/edit/page.tsx` checks only that the event exists. Check ownership (or admin) in the page and redirect or show a denial before the form renders. Found in C04-S2 (A9).
+
+- F22: the e2e suite runs only locally. CI (GitHub Actions) would need DATABASE_URL, DIRECT_URL, RESET_TOKEN and E2E_ADMIN_PASSWORD for a dev database as repo secrets, next to the must-not-change APP_URL/RESET_TOKEN secrets used by reset.yml; use separate secret names and a dev database, never the production values. Found in C05 (Scope Out).
+
+- F23: `npm run test:e2e` failed once in 9 runs: the setup test got 404 from /api/reset on the first request of the main run, and .next/dev/types/validator.ts was left garbled (tsc and next build then failed until .next/dev/types was deleted). Suspected overlap of the previous db-error server shutting down and the next dev server starting in the same .next/dev; not confirmed. In C05 validate a stale .next also made `npm run build` fail (font/google module not found) until `.next` was deleted, so a corrupt .next is a second suspect. If it recurs, wait for the lock release between the two runs or retry the setup request. Found in C05-S4 (A1).
+
+- F24: `npm run test:e2e` run 1 of 4 in C05 validate failed in `browse.spec.ts:52` ("a 10th event adds page 2"): `getByTestId('page-button-2')` matched 2 elements (strict mode violation). Same dev-mode streaming duplicate as in C05-S3, but this locator does not count `:visible` elements like the other tests do. Fix the locator in a later change (tests are not modified inside C05 validate). Found in C05 validate (A1).

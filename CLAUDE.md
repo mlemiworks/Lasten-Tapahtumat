@@ -55,6 +55,7 @@ npm run lint         # ESLint (see the lint note below)
 npx tsc --noEmit     # Type check
 npx prisma migrate deploy   # Apply existing migrations (uses DIRECT_URL from .env)
 npx prisma db seed          # Seed the database in .env
+npm run test:e2e            # Playwright suite on port 3100; WIPES AND RESEEDS the dev database
 ```
 
 - **Lint:** the config currently also lints non-source folders. To compare with the baseline, use `npx eslint . --ignore-pattern "src/generated/**"` (baseline: see the current change's spec).
@@ -122,7 +123,15 @@ Key token groups: `bg`, `surface`, `surface-soft`, `ink`, `ink-soft`, `border`, 
 
 ## Testing
 
-No automated tests on this branch yet (Playwright tests exist only on the stale `portfolio-tests` branch). When adding tests, add `data-testid` attributes to:
+Playwright end-to-end suite in `tests/e2e/` (Chromium only, local only, no CI). `npm run test:e2e` runs two configs in sequence on port 3100: the main run (C01 regression checks: browse, details, create/edit/delete, register, permissions, admin, `/api/reset`) and the db-error run (C04 error pages with a refused DB connection).
+
+- **It wipes the dev database.** A global setup calls `/api/reset` with `RESET_TOKEN` from `.env`, so every run starts from the seed and hand-entered dev data is lost.
+- Playwright starts its own `next dev` and never reuses a server. Stop your own `npm run dev` first (Next allows one dev server per folder), and keep port 3100 free.
+- `tests/e2e/env.ts` reads only `.env` and stops the run if the shell sets a different `DATABASE_URL` or `RESET_TOKEN`. Never run the suite with `.env.production.local` values, and never point it at `dev:prod` or `next start`.
+- Admin tests need `E2E_ADMIN_PASSWORD` (the `admin@example.fi` password) in `.env`.
+- The dev `RESET_TOKEN` must differ from production's.
+
+When adding tests, add `data-testid` attributes to:
 
 - Cards and list items representing data entities
 - Meaningful interactive elements (buttons, fields, modals, dropdowns)
