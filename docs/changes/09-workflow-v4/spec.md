@@ -1,5 +1,5 @@
 # C09: workflow v4, a Quick tier and leaner docs
-Tier: Light · Status: in progress · Decisions: D16 (planned, docs/decisions.md)
+Tier: Light · Status: complete · Decisions: D16 (docs/decisions.md)
 
 ## Context
 The process costs the same for a one-line fix as for a docs change, and the docs mix what I read with what the agent needs.
@@ -51,8 +51,8 @@ settings.json unchanged; existing decisions and F/Q numbers unchanged.
 | A8 | CLAUDE.md lists sdd-quick and the v4 procedures; every Working rules bullet from 33f23bf is still present or reworded with the same rule | diff vs 33f23bf, each removed line mapped in Notes | fail: 0 sdd-quick (14 Working rules bullets) | pass: 14 rules before, 15 after; none removed; plan bullet extended for Quick, targets bullet added | |
 | A9 | Skills point to templates.md and to no change folder | grep "docs/changes/[0-9]" in .claude/skills: 0 | pass: 0 | pass: 0 matches | |
 | A10 | docs/decisions.md gains D16 only; D1–D13 lines unchanged | git diff: additions only | fail: no D16 | pass: D16 added, 6 lines added, 0 removed | |
-| A11 | progress.md starts with a current-state block; C01–C06 one line each (result, merge commit, folder); C07, C08 sections unchanged. findings.md: open findings as "F#: summary · size: … · value: …", resolved ones under Archive, F1–F37 each exactly once. open-questions.md: closed Q2, Q3 under Archive, Q1 open | read + grep counts | fail: no block (starts with C08), 8 full sections; 0 size lines, 0 Archive sections (F1–F37 present once: 37) | | |
-| A12 | Changed files only in docs/workflow.md, docs/decisions.md, docs/progress.md, docs/findings.md, docs/open-questions.md, docs/changes/09-workflow-v4/, .claude/skills/, CLAUDE.md; build, tsc, lint unchanged (lint 8) | git diff --name-only portfolio; npm run build, npx tsc --noEmit, npm run lint | pass: 0 files; build 0, tsc 0, lint 8 (5 errors, 3 warnings) | pass: build 0, tsc 0, lint 8 (5 errors, 3 warnings); S1 files are in the allowed set | |
+| A11 | progress.md starts with a current-state block; C01–C06 one line each (result, merge commit, folder); C07, C08 sections unchanged. findings.md: open findings as "F#: summary · size: … · value: …", resolved ones under Archive, F1–F37 each exactly once. open-questions.md: closed Q2, Q3 under Archive, Q1 open | read + grep counts | fail: no block (starts with C08), 8 full sections; 0 size lines, 0 Archive sections (F1–F37 present once: 37) | pass: current-state block first; C01–C06 one line each (6 lines, hashes checked against git log); C07, C08 sections unchanged; findings.md 30 open with size and value, 9 under Archive, F1–F39 once each; Q1 open, Q2, Q3 under Archive | Added F38, F39 (S1 review notes) |
+| A12 | Changed files only in docs/workflow.md, docs/decisions.md, docs/progress.md, docs/findings.md, docs/open-questions.md, docs/changes/09-workflow-v4/, .claude/skills/, CLAUDE.md; build, tsc, lint unchanged (lint 8) | git diff --name-only portfolio; npm run build, npx tsc --noEmit, npm run lint | pass: 0 files; build 0, tsc 0, lint 8 (5 errors, 3 warnings) | pass: build 0, tsc 0, lint 8 (5 errors, 3 warnings); S1 files are in the allowed set; S2 adds findings.md, open-questions.md, progress.md, spec.md, CLAUDE.md (all allowed); rerun: build 0, tsc 0, lint 8 | A1–A10 rerun in S2: all pass, same values |
 
 ## Plan
 S1: tooling
