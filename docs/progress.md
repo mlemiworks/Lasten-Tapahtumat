@@ -1,6 +1,6 @@
 # Progress
 
-## C08: lint ignores, codebase map rewrite, README version (`docs/changes/08-docs-lint-cleanup/`): in progress
+## C08: lint ignores, codebase map rewrite, README version (`docs/changes/08-docs-lint-cleanup/`): complete
 
 Branch: `chore/08-docs-lint-cleanup`
 Tier: Light. Decisions: none.
@@ -16,9 +16,14 @@ Tier: Light. Decisions: none.
 - S3: `docs/codebase-map.md` rewritten from the code (7 sections, plain tables, repo-relative paths, architecture only); section 6 observations mapped in the spec's Notes: new findings F25–F36 (12), F21 and C04 reused, plus F37 (Render cron, unverified); README says Next.js 16 (2 places); F18 resolved; spec.md line 1 heading repaired (S2 review note). A4–A8, A10–A12 After filled, all pass (lint 8, build 0, tsc 0).
 - S3: local choices: old section 7 (CLAUDE.md/README/ROADMAP mismatches) dropped, not mapped; "SERVICE_ROLE_KEY missing from .env" dropped as obsolete (key is present); one table per area; F25–F37 are one line each, no new decisions.
 
+- Validate: all 12 criteria rerun on `chore/08-docs-lint-cleanup`, all pass, After values unchanged (lint 8: 5 errors, 3 warnings, 69 files, same 8 entries; build 0; tsc 0; A4/A8/A9 greps 0; A6 13 of 13; A5 path script finds only URL route patterns, a fetch call and the /testImages/ URL unresolved, no missing file). No manual criteria, no differences from Before that need a decision.
+
+- Close: /sdd-close. Docs-only change, no deploy, no migration. Code and docs reach portfolio by merge after the close commit (merge commit recorded by hash once made; not yet merged). F10 and F18 resolved; new findings F25–F37 were filed in S3; no new open questions. CLAUDE.md current change set to none.
+- Close: living docs checked against the diff: codebase-map.md rewritten in S3, CLAUDE.md lint note updated in S2, must-not-change.md unchanged; nothing stale. Not the third closed change since the last process edit (C07), so no process edits proposed.
+
 ### Next
 
-- /sdd-review S3, then /sdd-validate and /sdd-close.
+- Merge to portfolio, then pick the next change from findings.md (F25–F37 are new; F20–F24 older).
 
 ## C07: required image or illustration (`docs/changes/07-required-image/`): complete
 

@@ -1,5 +1,5 @@
 # C08: Lint ignores, codebase map rewrite, README version
-Tier: Light · Status: in progress · Decisions: none
+Tier: Light · Status: done · Decisions: none
 
 ## Context
 `npm run lint` lints the generated Prisma client, so it reports 798 problems and the real
