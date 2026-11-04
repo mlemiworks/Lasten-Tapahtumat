@@ -20,10 +20,12 @@ Tier: Standard. Decisions: D15 (`docs/changes/07-required-image/decisions.md`).
 
 - S4: CLAUDE.md Gotchas `imgUrl` line, codebase-map placeholder line, F5 resolved. A11 After filled: `npm run test:e2e` 39 + 3 pass, 3 of 3 runs, exit 0 (the DatabaseNotReachable lines in the output come from the db-error run, which refuses the connection on purpose). A8 pass (run by me, dev): `*` shows, upload saves and shows.
 
+- Validate: all automated criteria rerun, After values unchanged: A10 0 matches; A11 39 + 3, 3 of 3 runs; A12 only event-crud (+1) and helpers (+7/-1), 0 expect lines changed; A13 build 0, tsc 0, lint 8; A14 no diff. A15 pass (run by me, Render): no-image create shows the error and saves nothing, uploaded image saves. All 15 criteria pass; no After differs from Before in a way that needs a decision. Missing Notes cells added to the criteria table.
+
 ### Next
 
-- Me: fast-forward, deploy on Render, run A15.
-- /sdd-review S4, then commit.
+- /sdd-review the validation docs, then commit.
+- /sdd-close.
 
 ## C06: flaky locator fix (`docs/changes/06-flaky-locator/`): complete
 
