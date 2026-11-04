@@ -18,12 +18,12 @@ Tier: Light. Decisions: none.
 
 - Validate: all 12 criteria rerun on `chore/08-docs-lint-cleanup`, all pass, After values unchanged (lint 8: 5 errors, 3 warnings, 69 files, same 8 entries; build 0; tsc 0; A4/A8/A9 greps 0; A6 13 of 13; A5 path script finds only URL route patterns, a fetch call and the /testImages/ URL unresolved, no missing file). No manual criteria, no differences from Before that need a decision.
 
-- Close: /sdd-close. Docs-only change, no deploy, no migration. Code and docs reach portfolio by merge after the close commit (merge commit recorded by hash once made; not yet merged). F10 and F18 resolved; new findings F25–F37 were filed in S3; no new open questions. CLAUDE.md current change set to none.
+- Close: /sdd-close. Docs-only change, no deploy, no migration. Code and docs reached portfolio by fast-forward (no merge commit, local, not pushed): a0cfb5c (S2), 5855b6a (S3), e79c2a3 (close). F10 and F18 resolved; new findings F25–F37 were filed in S3; no new open questions. CLAUDE.md current change set to none.
 - Close: living docs checked against the diff: codebase-map.md rewritten in S3, CLAUDE.md lint note updated in S2, must-not-change.md unchanged; nothing stale. Not the third closed change since the last process edit (C07), so no process edits proposed.
 
 ### Next
 
-- Merge to portfolio, then pick the next change from findings.md (F25–F37 are new; F20–F24 older).
+- Pick the next change from findings.md (F25–F37 are new; F20–F24 older).
 
 ## C07: required image or illustration (`docs/changes/07-required-image/`): complete
 
