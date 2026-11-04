@@ -7,7 +7,7 @@ Guidance for Claude Code when working in this repository (Lasten tapahtumat, a N
 All in `docs/` (see decisions D5, D11, D12):
 
 - `docs/workflow.md`: the method: phases, skills, commit gate, rigor tiers, criteria format, decision threshold, naming.
-- `docs/changes/<NN-slug>/`: spec.md (and design.md and plan.md when present) and decisions.md for one change. **The current change is: C07 (`docs/changes/07-required-image/`).**
+- `docs/changes/<NN-slug>/`: spec.md (and design.md and plan.md when present) and decisions.md for one change. **The current change is: none.**
 - Decision logs (D10). IDs are one sequence across all files: check every decisions.md for the next free number. Append only; mark superseded entries, never delete them.
   - `docs/decisions.md`: project-wide decisions (D1, D5, D10, ...).
   - `docs/changes/<NN-slug>/decisions.md`: decisions for that change only (C01: `docs/changes/01-security-patch/decisions.md`, D2–D4, D6–D9).
@@ -33,7 +33,7 @@ open-questions = something only a person can answer
 - Sessions start in `eventsforkids/` (the repo root). From the parent folder, the skills and the commit gate don't load.
 - Follow the current change's plan step by step; stay within each step's Do and Don't.
 - Don't modify code outside the current step's scope. Don't "clean up" unrelated code, even if it looks wrong. Note it for findings.md instead.
-- Small, local choices within the current step (naming, formatting, internal structure): decide, and state the choice in your summary.
+- Small, local choices within the current step (naming, formatting, internal structure): decide, and state the choice in your summary. Don't ask about choices with a sensible default (also in skill questions); ask only when scope, a criterion, a must-not-change item, the tier or the approach is at stake.
 - Anything that would deviate from the plan, touch a Don't item, change a must-not-change item, or require changing the spec or design: **stop and ask**. Documents change first, code follows; spec, design and plan edits apply only after I approve them.
 - Never modify existing tests to make them pass. If a test seems wrong, stop and explain.
 - Never run `npm audit fix --force`. Upgrade only the packages the current step names.

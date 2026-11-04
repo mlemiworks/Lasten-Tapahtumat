@@ -1,6 +1,6 @@
 # Progress
 
-## C07: required image or illustration (`docs/changes/07-required-image/`): in progress
+## C07: required image or illustration (`docs/changes/07-required-image/`): complete
 
 Branch: `feat/07-required-image`
 Tier: Standard. Decisions: D15 (`docs/changes/07-required-image/decisions.md`).
@@ -22,10 +22,14 @@ Tier: Standard. Decisions: D15 (`docs/changes/07-required-image/decisions.md`).
 
 - Validate: all automated criteria rerun, After values unchanged: A10 0 matches; A11 39 + 3, 3 of 3 runs; A12 only event-crud (+1) and helpers (+7/-1), 0 expect lines changed; A13 build 0, tsc 0, lint 8; A14 no diff. A15 pass (run by me, Render): no-image create shows the error and saves nothing, uploaded image saves. All 15 criteria pass; no After differs from Before in a way that needs a decision. Missing Notes cells added to the criteria table.
 
+- Validate docs committed as c7ae3e8 through the gate.
+- Close: /sdd-close. Code reached portfolio by fast-forward (no merge commit, local, not pushed): b1f31ea (S2), 79eeb29 (S3), 9b47a13 (S4 docs), c7ae3e8 (validate docs). Deploy: A15 pass on Render (run by me). F5 resolved; no new findings or open questions. CLAUDE.md current change set to none.
+- Close: codebase-map.md API rows (POST, PUT) and tests/e2e line updated for the imgUrl rule; must-not-change.md unchanged. Process notes written.
+- Close: process edits approved by me (third change since the last edit): defaults are taken without asking when stakes are low (sdd-start step 4, workflow.md, CLAUDE.md); process questions are optional (sdd-close step 6); Notification hook `.claude/hooks/notify.ps1` shows a toast and sound when input is needed. workflow.md is now version 3.1.
+
 ### Next
 
-- /sdd-review the validation docs, then commit.
-- /sdd-close.
+- Next change: not chosen. Open backlog worth considering: F23 (flaky first request, corrupt .next), F22 (CI for the suite), F21 (non-owner sees the edit form).
 
 ## C06: flaky locator fix (`docs/changes/06-flaky-locator/`): complete
 

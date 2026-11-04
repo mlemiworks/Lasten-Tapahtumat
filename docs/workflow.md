@@ -1,6 +1,6 @@
 # Workflow: spec-driven changes with Claude Code
 
-Version 3.0 (C03, D12). Successor to project guide v2 (Claude.ai), now retired.
+Version 3.1 (C03, D12; process edits after C07). Successor to project guide v2 (Claude.ai), now retired.
 Start every session in `eventsforkids/` (the repo root). From the parent folder, the skills and the commit gate don't load.
 
 ## Roles
@@ -41,10 +41,14 @@ Behavior criteria use EARS: "When <trigger>, the <system> shall <response>." "If
 
 ## Decisions and changes to the plan
 Decision (D) only when scope, a criterion, a must-not-change item, the tier or the approach changes, or a result that differs from the baseline is accepted. An out-of-scope observation is a finding (F). Anything else is one line in progress.md. Decisions are ≤ 6 lines, append-only, with global IDs, appended only after I approve.
+Defaults: where a sensible default exists and the stakes are low (naming, formatting, internal structure, wording), decide, state the choice in the summary or as a spec assumption, and don't ask. Ask only when scope, a criterion, a must-not-change item, the tier or the approach is at stake.
 When implementation shows the spec, design or plan is wrong: stop, report the deviation, change the documents first (spec, then design, then plan, tagged with the D#), then the code.
 
 ## Naming
 Change folders `docs/changes/NN-slug/`. Branches `<chore|fix|feat>/NN-slug`. Commits `<type>(CNN-Sn): <message>`. Project IDs: C change, D decision, F finding, Q open question. Change-local IDs: A criterion, S step (outside the change, write C03-A2). IDs are never reused.
 
+## Notifications
+A Notification hook (`.claude/hooks/notify.ps1`, set in `.claude/settings.json`) shows a Windows toast and plays a sound whenever Claude Code waits for my input or a permission.
+
 ## Process review
-`/sdd-close` asks: What was clumsy? What was skipped, and did it matter? What produced no value? Answers go to docs/process-notes.md. After every third closed change, propose edits to this file, CLAUDE.md and the skills as a diff with one reason each, and raise the version.
+`/sdd-close` offers (optional; unanswered counts as no answer): What was clumsy? What was skipped, and did it matter? What produced no value? Answers go to docs/process-notes.md. After every third closed change, propose edits to this file, CLAUDE.md and the skills as a diff with one reason each, and raise the version.

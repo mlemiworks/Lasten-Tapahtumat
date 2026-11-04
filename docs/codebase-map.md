@@ -10,7 +10,7 @@ prisma.config.ts Prisma CLI config (DIRECT_URL)
 .github/workflows/reset.yml GitHub Actions cron that calls /api/reset every 6 hours
 public/ testImages/\*.jpg, default SVGs, illustrations.jsx (?)
 dev-data/ old db.json (gitignored, kept for reference)
-tests/e2e/ Playwright suite (C05): `npm run test:e2e`, wipes and reseeds the dev DB
+tests/e2e/ Playwright suite (C05): `npm run test:e2e`, wipes and reseeds the dev DB; image-rule.spec.ts covers the imgUrl rule
 src/
 middleware.ts NextAuth route guard
 lib/ prisma.ts (singleton), dataFetching.ts (data layer), auth.ts (NextAuth config),
@@ -93,9 +93,9 @@ Pages:
 │ POST │ /api/register │ none │ Vssword, creates the user │
 ├──────────┼─────────────────────────┼─────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────┤
 │ POST │ /api/create-event │ session │ Validates that title and date exist and that the category is known; sets createdBy to the │
-│ │ │ │ │
+│ │ │ │ Also requires a valid imgUrl (validImgUrl): 400 "Valitse kuvitus tai lataa oma kuva" │
 ├──────────┼─────────────────────────┼─────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────┤
-│ PUT │ /api/events/[id] │ owner or admin │ Updates the event. lat/lng: undefined keeps the old value, null clears it │
+│ PUT │ /api/events/[id] │ owner or admin │ Updates the event. lat/lng: undefined keeps the old value, null clears it; imgUrl must pass validImgUrl (400), checked after ownership │
 ├──────────┼─────────────────────────┼─────────────────────┼──────────────────────────────────────────────────────────────┤
 │ DELETE │ /api/events/[id] │ owner or admin │ Deletes the event │
 ├──────────┼─────────────────────────┼─────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────┤

@@ -1,5 +1,5 @@
 # C07: Required image or illustration for events
-Tier: Standard · Status: in progress · Decisions: D15
+Tier: Standard · Status: complete · Decisions: D15
 
 ## Context
 An event can be saved without an image. The create API then stores `https://placehold.co/600x400`, and the card shows a grey "600x400" box (F5). From now on, every create and edit must carry one of the app's illustrations or an image the user uploaded to our Storage bucket. The form enforces this, and so do `POST /api/create-event` and `PUT /api/events/[id]`. This affects users who create or edit events, and the e2e suite (C05). References: F5, D1 (separate dev and prod Supabase projects).
