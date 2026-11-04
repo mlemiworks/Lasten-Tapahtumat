@@ -1,6 +1,6 @@
 # Lasten tapahtumat
 
-A children's events listing site built as an exercise in AI-assisted development — specifically using Claude Code as an agent to build a real Next.js project from scratch. The stack is Next.js 15 App Router, React 19, NextAuth v4, and Tailwind CSS v4.
+A children's events listing site built as an exercise in AI-assisted development — specifically using Claude Code as an agent to build a real Next.js project from scratch. The stack is Next.js 16 App Router, React 19, NextAuth v4, and Tailwind CSS v4.
 
 Anyone can browse events. Only registered and logged-in users can create, edit, or delete their own events. Admins can manage all events.
 
@@ -23,7 +23,7 @@ Try it out with the test account: testi@example.com / testi123
 
 | Concern       | Choice                                                             |
 | ------------- | ------------------------------------------------------------------ |
-| Framework     | Next.js 15 App Router                                              |
+| Framework     | Next.js 16 App Router                                              |
 | Language      | TypeScript                                                         |
 | Styling       | Tailwind CSS v4 ("Niitty/Meadow" design system, Fraunces + Nunito) |
 | Auth          | NextAuth v4, credentials + bcrypt, JWT sessions                    |

@@ -1,174 +1,89 @@
-I didn't modify any files. I skipped eventsforkids/docs/ as you asked. The checked-out branch is portfolio.
+# Codebase map
 
-1. Folders and main components
+Architecture overview of Lasten tapahtumat. Paths are relative to the repo root (the repo root). Known issues are not listed here: they live in `docs/findings.md`.
 
-eventsforkids/ ← the Next.js app and git repo; sessions start here (the parent folder holds nothing else)
-.claude/ skills (sdd-*), hooks/review-gate.mjs (commit gate), settings.json
-docs/ workflow.md, changes/, decisions, findings, progress
-prisma/ schema, 3 migrations, seed.ts
-prisma.config.ts Prisma CLI config (DIRECT_URL)
-.github/workflows/reset.yml GitHub Actions cron that calls /api/reset every 6 hours
-public/ testImages/\*.jpg, default SVGs, illustrations.jsx (?)
-dev-data/ old db.json (gitignored, kept for reference)
-tests/e2e/ Playwright suite (C05): `npm run test:e2e`, wipes and reseeds the dev DB; image-rule.spec.ts covers the imgUrl rule
-src/
-middleware.ts NextAuth route guard
-lib/ prisma.ts (singleton), dataFetching.ts (data layer), auth.ts (NextAuth config),
-categories.ts (CATEGORIES, CITIES with coordinates, getCityCoords)
-types/types.ts Category union type only
-app/ App Router pages and API routes (see below)
-components/ header, login-dropdown (Radix
-eventCard, event-form, event-actions, LocationPicker,
-EventMap + EventMapClient, Wea
-generated/prisma/ generated Prisma client (gitignored)
+## 1. Folders
 
-Pages:
+| Path | Contents |
+| --- | --- |
+| `src/app/` | App Router pages, API routes, `src/app/globals.css` (Tailwind v4 tokens), error and loading boundaries |
+| `src/components/` | Header, login dropdown, event card, event form, event actions, home browser, map and weather components |
+| `src/components/ui/` | Button, Input, Select, Textarea, Pill, ImageUploader, `src/components/ui/Illustrations.tsx` (inline SVG illustrations) |
+| `src/lib/` | `src/lib/prisma.ts` (singleton client), `src/lib/dataFetching.ts` (data layer), `src/lib/auth.ts` (NextAuth config), `src/lib/categories.ts` (categories, cities with coordinates), `src/lib/imgUrl.ts` (`validImgUrl`) |
+| `src/types/types.ts` | `Category` union type only |
+| `src/middleware.ts` | NextAuth route guard |
+| `src/generated/prisma/` | Generated Prisma client (git-ignored) |
+| `prisma/` | `prisma/schema.prisma`, `prisma/migrations/` (3), `prisma/seed.ts` |
+| `prisma.config.ts` | Prisma CLI config (`DIRECT_URL`) |
+| `tests/e2e/` | Playwright suite, run by `npm run test:e2e` (wipes and reseeds the dev database) |
+| `playwright.config.ts`, `playwright.db-error.config.ts` | Main run and the refused-DB-connection run |
+| `.github/workflows/reset.yml` | GitHub Actions cron that POSTs to `/api/reset` every 6 hours |
+| `.claude/` | Project skills (`sdd-*`), `.claude/hooks/review-gate.mjs` (commit gate), `.claude/settings.json` |
+| `docs/` | Working documents: workflow, changes, decisions, findings, progress |
+| `public/` | `public/testImages/`, default SVGs, `public/illustrations.jsx` |
+| `dev-data/` | Old `dev-data/db.json` (git-ignored, reference only) |
 
-┌───────────────┬────────────────────────────┬────────────────────────────────────────────────────────────────────────────┐
-│ Route │ Type │ Notes │
-├───────────────┼────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ / │ server → HomeBrowser │ force-dynamic. iltering and pagination (9 per page) all happen in the │
-│ │ (client) │ browser. │
-├───────────────┼────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ /[event] │ server │ Detail page. Maeather appears if the event is 0–16 days away. EventActions │
-│ │ │ is a client component. │
-├───────────────┼────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ /[event]/edit │ server → EditEventClient │ Prefills the fo. │
-├───────────────┼────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ /create-event │ client │ Sends a POST to /api/create-event. │
-├───────────────┼────────────────────────────┼────────────────────────────────────────────────────────────────────────────┤
-│ /dashboard │ server │ Fetches all events, then filters by createdBy === session email. │
-├───────────────┼────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ /admin │ server → AdminClient │ Admin check is d delete. │
-├───────────────┼────────────────────────────┼─────────────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ /register │ client │ Sends a POST to /api/register. │
-└───────────────┴────────────────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+## 2. Pages
 
-2. Request flow (landing page → database → back)
+| Route | File | Type | Notes |
+| --- | --- | --- | --- |
+| `/` | `src/app/page.tsx` | server, renders `HomeBrowser` (client) | `force-dynamic`. Filtering and pagination (9 per page) happen in the browser |
+| `/[event]` | `src/app/[event]/page.tsx` | server | Detail page. Weather shows if the event is 0–16 days away. `EventActions` is a client component |
+| `/[event]/edit` | `src/app/[event]/edit/page.tsx` | server, renders `EditEventClient` (`src/app/[event]/edit/client.tsx`) | Prefills the form. Redirects to `/` if the event doesn't exist. Middleware requires login |
+| `/create-event` | `src/app/create-event/page.tsx` | client | POSTs to `/api/create-event`. Middleware requires login |
+| `/dashboard` | `src/app/dashboard/page.tsx` | server | Fetches all events, keeps those with `createdBy` equal to the session email. Middleware requires login |
+| `/admin` | `src/app/admin/page.tsx` | server, renders `AdminClient` (`src/app/admin/client.tsx`) | Redirects anyone but the admin to `/`. Lists all events with delete |
+| `/register` | `src/app/register/page.tsx` | client | POSTs to `/api/register` |
 
-1. Browser GET / → middleware.ts (doesn't match /, so it passes through).
-1. app/page.tsx (server component) → fetchEvents() in lib/datandMany → PrismaPg adapter → Supabase Postgres via DATABASE_URL(pooler).
-1. The events are rendered on the server and passed as props to HomeBrowser (client), which handles filtering in the browser.
-1. A click on a card goes to /[id]. That page's server compone renders the detail page.
-1. The browser then makes its own calls: EventMap loads OpenStreetMap tiles, WeatherForecast calls Open-Meteo, and EventActions reads the session with useSession().
-1. Writes: client form → fetch('/api/...') → route handler → gg → Prisma → JSON response → router.push.
+Boundaries: `src/app/layout.tsx` (providers, header, footer), `src/app/loading.tsx` and `src/app/[event]/loading.tsx` (skeletons), `src/app/error.tsx` (root error boundary), `src/app/global-error.tsx`.
 
-1. Where data lives
+## 3. API routes
 
-- Postgres (Supabase), through Prisma 7. There are two models:
-  - Event: dates are stored as text (YYYY-MM-DD), price is a string, lat/lng are optional floats.
-  - User: email is unique and password holds a bcrypt hash.
-  - Event.createdBy is a foreign key to User.email, not User.id, with ON DELETE SET NULL.
-- Supabase Storage, bucket event-images. /api/upload-image uploads with the service-role key and returns a public URL.
-- Images in other places:
-  - public/testImages/ (local files)
-  - inline SVG illustrations in ui/Illustrations.tsx
-  - no placeholder: `imgUrl` is required and checked by `validImgUrl` in src/lib/imgUrl.ts (C07)
-- External APIs, all called from the browser:
-  - Nominatim, to geocode the city in LocationPicker
-  - OpenStreetMap tiles
-  - unpkg, for the Leaflet marker icons
-  - Open-Meteo, for weather. It uses the city coordinates from CITIES, not the event's own lat/lng.
-- Seed data is defined twice: in prisma/seed.ts (upsert) and ite). Both have 9 events and 2 users.
+| Method | Route | File | Auth | What it does |
+| --- | --- | --- | --- | --- |
+| GET, POST | `/api/auth/[...nextauth]` | `src/app/api/auth/[...nextauth]/route.ts` | none | NextAuth handlers |
+| POST | `/api/register` | `src/app/api/register/route.ts` | none | Requires email and password (8+ characters), rejects an email already in use, hashes with bcrypt (10 rounds), creates the user |
+| POST | `/api/create-event` | `src/app/api/create-event/route.ts` | session | Requires title and date and a valid `imgUrl`, sets `createdBy` to the session email |
+| PUT | `/api/events/[id]` | `src/app/api/events/[id]/route.ts` | owner or admin | Updates the event. `lat`/`lng`: `undefined` keeps the old value, `null` clears it |
+| DELETE | `/api/events/[id]` | `src/app/api/events/[id]/route.ts` | owner or admin | Deletes the event |
+| POST | `/api/upload-image` | `src/app/api/upload-image/route.ts` | session | Uploads an image file to Supabase Storage under a UUID filename and returns `{ url }` |
+| POST | `/api/reset` | `src/app/api/reset/route.ts` | `x-reset-token` header | Deletes all events and users, then reseeds them with dates relative to today |
 
-4. Authentication and authorization
+## 4. Request flow
 
-- Login: NextAuth v4 with a credentials provider (lib/auth.ts). It finds the user by email and checks the password with bcrypt. Sessions are JWTs and signIn points to /.
-- Logging in and out: login-dropdown.tsx calls signIn('credenthe password with bcrypt (10 rounds) and requires at least 8characters.
-- Middleware (src/middleware.ts) blocks logged-out users from /dashboard and /admin.
-- Admin check. Admin means the session email equals 'admin@example.fi'. There is no role field. This check happens in four places:
-  - app/admin/page.tsx:11,15: defines ADMIN_EMAIL and redirects anyone else (this is the server-side gate).
-  - app/api/events/[id]/route.ts:10,27: imports ADMIN_EMAIL fr
-  - components/event-actions.tsx:28: hardcoded string, used only to decide what to show.
-  - components/header.tsx:82: hardcoded string, used only to decide what to show.
-- Ownership: resolveEvent() in api/events/[id] lets a request through only if the user is the owner or the admin. This applies to both PUT and DELETE.
+1. Browser GET `/`. `src/middleware.ts` doesn't match it, so it passes through.
+2. `src/app/page.tsx` (server) calls `fetchEvents()` in `src/lib/dataFetching.ts`, which goes through Prisma and the `PrismaPg` adapter to Supabase Postgres (`DATABASE_URL`, transaction pooler). The pool uses a 5 s connect timeout.
+3. The events render on the server and go as props to `HomeBrowser` (client), which filters in the browser.
+4. A card click goes to `/[event]`, whose server component fetches that event.
+5. The browser then makes its own calls: `EventMap` loads OpenStreetMap tiles, `WeatherForecast` calls Open-Meteo, `EventActions` reads the session with `useSession()`.
+6. Writes: client form, `fetch('/api/...')`, route handler, `src/lib/dataFetching.ts`, Prisma, JSON response, `router.push`.
 
-5. API routes
+If the database is unreachable, `src/app/error.tsx` and `src/app/global-error.tsx` show an error page.
 
-┌──────────┬─────────────────────────┬─────────────────────┬──────────────────────────────────────────────────────────────┐
-│ Method │ Route │ Auth │ What it does │
-├──────────┼─────────────────────────┼─────────────────────┼──────────────────────────────────────────────────────────────┤
-│ GET/POST │ /api/auth/[...nextauth] │ — │ NextAuth handlers │
-├──────────┼─────────────────────────┼─────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────┤
-│ POST │ /api/register │ none │ Vssword, creates the user │
-├──────────┼─────────────────────────┼─────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────┤
-│ POST │ /api/create-event │ session │ Validates that title and date exist and that the category is known; sets createdBy to the │
-│ │ │ │ Also requires a valid imgUrl (validImgUrl): 400 "Valitse kuvitus tai lataa oma kuva" │
-├──────────┼─────────────────────────┼─────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────┤
-│ PUT │ /api/events/[id] │ owner or admin │ Updates the event. lat/lng: undefined keeps the old value, null clears it; imgUrl must pass validImgUrl (400), checked after ownership │
-├──────────┼─────────────────────────┼─────────────────────┼──────────────────────────────────────────────────────────────┤
-│ DELETE │ /api/events/[id] │ owner or admin │ Deletes the event │
-├──────────┼─────────────────────────┼─────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────┤
-│ POST │ /api/upload-image │ session │ Iase Storage with a UUID filename → returns { url } │
-├──────────┼─────────────────────────┼─────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────┤
-│ POST │ /api/reset │ x-reset-token │ Deletes all events and users, then reseeds them (dates are relative to today) │
-│ │ │ header │ │
-└──────────┴─────────────────────────┴─────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────┘
+## 5. Data
 
-6. Unusual things and things I couldn't determine
+- **Postgres (Supabase) through Prisma 7**, two models:
+  - `Event`: date and time are text (`YYYY-MM-DD`), `price` is a string, `lat`/`lng` are optional floats.
+  - `User`: `email` is unique, `password` holds a bcrypt hash.
+  - `Event.createdBy` references `User.email` (not `User.id`) with `ON DELETE SET NULL`.
+- **Supabase Storage**: bucket `event-images`. `/api/upload-image` uploads with the service-role key and returns a public URL.
+- **Event images**: `imgUrl` is required and checked by `validImgUrl` in `src/lib/imgUrl.ts`. It accepts an illustration ID (rendered from `src/components/ui/Illustrations.tsx`), a `/testImages/` path (`public/testImages/`) or a URL under our own Supabase bucket.
+- **External APIs, all called from the browser**: Nominatim (geocodes the city in `LocationPicker`), OpenStreetMap tiles, unpkg (Leaflet marker icons), Open-Meteo (weather, using the city coordinates from `CITIES`, not the event's own `lat`/`lng`).
+- **Seed data** is defined twice: `prisma/seed.ts` (upsert) and `src/app/api/reset/route.ts` (delete and recreate). Both create 9 events and the users `testi@example.com` and `admin@example.fi`.
+- **Direct Prisma access outside `src/lib/dataFetching.ts`**: `src/app/api/reset/route.ts` and `prisma/seed.ts`.
 
-Possible bugs and security issues:
+## 6. Authentication and authorization
 
-- The edit page doesn't check ownership on the server. Any logged-in user can open /<anyId>/edit and see the prefilled form. Saving is still blocked by the API, which returns 403.
-- Admins can't reach the edit page from the UI. EventActions shows "Muokkaa" (Edit) only to the owner, even though the API allows admin PUTs.
-- The organizer's email is shown publicly in the "Järjestäjä" (organizer) row on the detail page (createdBy).
-- Create skips some required fields. It doesn't validate location, city or category; missing values are stored as ''.
-- PUT and create handle an empty time differently. PUT uses ?? null, so an empty string is stored as ''. Create uses || null, so it is stored as null.
-- Client code types id as a number. create-event/page.tsx and edit/client.tsx use id?: number, but IDs are cuid strings.
-- Uploaded images are never deleted. I found no code that removes them from Storage when an event is deleted or the database is reset. (Fairly sure, but not 100%.)
-- error.tsx (root boundary, Finnish, retry + front page link) and global-error.tsx exist since C04; pg connect timeout 5 s in prisma.ts.
-- Debugging output left in: WeatherForecast.tsx has console.log calls.
+- **Login**: NextAuth v4, credentials provider (`src/lib/auth.ts`). It finds the user by email and checks the password with bcrypt. Sessions are JWTs. `signIn` points to `/`, where `src/components/login-dropdown.tsx` calls `signIn('credentials')`.
+- **Middleware** (`src/middleware.ts`, `withAuth`) guards `/create-event`, `/:path*/edit`, `/dashboard` and `/admin`.
+- **Admin** means the session email equals `admin@example.fi`; there is no role field.
+  - `src/app/admin/page.tsx` defines `ADMIN_EMAIL` and redirects anyone else (server-side gate).
+  - `src/app/api/events/[id]/route.ts` imports `ADMIN_EMAIL` from that page.
+  - `src/components/event-actions.tsx` and `src/components/header.tsx` hardcode the string and use it only to decide what to show.
+- **Ownership**: `resolveEvent()` in `src/app/api/events/[id]/route.ts` returns 401 without a session, 404 for an unknown id and 403 unless the user owns the event or is the admin. It guards both PUT and DELETE.
+- **Reset**: `/api/reset` compares the `x-reset-token` header to `RESET_TOKEN` and rejects when it is unset.
 
-Leftovers and unclear files:
+## 7. Environment and deployment
 
-- public/illustrations.jsx doesn't seem to be imported anywhere. Because it's in public/, its raw source file is served to anyone who requests it.
-- tailwind.config.mjs is a Tailwind v3-style config with paths that don't match this project. I assume Tailwind v4 ignores it (unsure).
-- The lat/lng migration is named 20260521090321_init, the same ROADMAP planned to call it add-event-coordinates.
-- NEXT_PUBLIC_SUPABASE_ANON_KEY is defined in .env but nothing in the code uses it.
-- .env has no SUPABASE_SERVICE_ROLE_KEY, so image upload probably fails with a plain npm run dev. The key only exists in .env.production.local and
-  .env.test.local.
-- /api/reset compares the token with !==, which isn't a constant-time comparison. It does fail safely if RESET_TOKEN is unset.
-
-Couldn't determine:
-
-- Whether the Render hosting setup also has its own cron job.
-- What production users see when the database is down.
-- What the stale Playwright output in playwright-report/ and test-results/ was for. Closed by C05: the C05 runs regenerated both folders, nothing stale is left.
-
-7. Where CLAUDE.md, README and ROADMAP don't match the code
-
-┌──────────────────────────────────────────────────┬───────────────────────────────────────────────────────────────────────────────────────────────────┐
-│ Claim │ Actual │
-├──────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ CLAUDE.md: "All DB access goes through │ app/api/reset/route.ts imports prisma directly (and so does prisma/seed.ts, though that's a │
-│ dataFetching.ts — no other file imports Prisma" │ script). │
-├──────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ CLAUDE.md: "Seeded events have no createdBy" │ True. │
-├──────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ CLAUDE.md: Playwright e2e and data-testid │ Resolved by C05: @playwright/test, two configs and tests/e2e/ exist; data-testid is on cards, filters, │
-│ conventions │ header, auth forms, dashboard, admin and error pages (9 src/ files, 44 insertions). │
-│ │ portfolio-tests was deleted after the tests were ported. │
-├──────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ CLAUDE.md: price stored as "5", "0", null │ Code comments and the detail page also handle "5€" and "Vapaa pääsy" (free entry). │
-├──────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ CLAUDE.md: "Admin email … hardcoded in │ It is alsder.tsx and event-actions.tsx, and the API imports it from │
-│ src/app/admin/page.tsx" │ the page file. │
-├──────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ CLAUDE.md env section │ Leaves ouRL, RESET_TOKEN, NEXT_PUBLIC_SUPABASE_ANON_KEY and │
-│ │ BASE_URL. │
-├──────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ README and ROADMAP: "Next.js 15" │ package.jrns that middleware is deprecated. │
-├──────────────────────────────────────────────────┼───────────────────────────────────────────────────────────────────────────────────────────────────┤
-│ ROADMAP: "Render cron job that resets DB every │ The repo resets through a GitHub Actions workflow (reset.yml). │
-│ 6h" │ │
-├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┤
-│ ROADMAP: "update src/types/types.ts … Event │ Event now comes from Prisma, and types.ts only holds Category. That part of the plan is outdated. │
-│ type" │ │
-├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┤
-│ README API table: register, create-event, │ Matches the code. │
-│ events, reset, upload-image │ │
-├──────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────┤
-│ CLAUDE.md: middleware matcher, Leaflet notes, │ │
-│ illustration IDs, imgUrl rules, Prisma 7 import │ All match the code. │
-│ path and adapter │ │
-└──────────────────────────────────────────────────┴───────────────────────────────────────────────────────────────────────────────────────────────────┘
+- `.env` (development) and `.env.production.local` (production) hold the runtime variables listed in `CLAUDE.md`.
+- Hosting is Render. `.github/workflows/reset.yml` resets the demo database through `/api/reset` with the `APP_URL` and `RESET_TOKEN` secrets.

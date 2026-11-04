@@ -1,4 +1,4 @@
-# pass: build 0, tsc 0 | |  |pass: CLAUDE.md (current change line), docs/ only | |  |fail: F10 and F18 open | |  |fail: 1 match | |  |fail: 2 matches, "Next.js 16" 0 | |  |fail: 0 mapped | |  |pass: 13 of 13 | | Weak at baseline: "/" matches any line; After checks route cells |fail: 2 of 19 paths don't resolve (edit/client.tsx, hooks/review-gate.mjs); 0 backticked paths | | Paths written relative to unstated folders; files exist under src/app/[event]/edit/ and .claude/hooks/ |fail: 1 preamble match, 73 box-drawing lines | |  |fail: none of the 3 patterns present | |  |fail: 87 files; the 18 extra are src/generated/ (790 extra problems). Reference: 69 files, 8 problems (Notes) | |  |fail: 798 (292 errors, 506 warnings) | |  |C08: Lint ignores, codebase map rewrite, README version
+# C08: Lint ignores, codebase map rewrite, README version
 Tier: Light · Status: in progress · Decisions: none
 
 ## Context
@@ -50,15 +50,15 @@ and table format are defaults.
 | A1 | `npm run lint` reports exactly 8 problems (5 errors, 3 warnings) | npm run lint | fail: 798 (292 errors, 506 warnings) | pass: 8 (5 errors, 3 warnings) | |
 | A2 | `npm run lint` lints the same 69 files, same file/line/rule list as `npx eslint . --ignore-pattern "src/generated/**"` at baseline; 0 differences | eslint -f json, compare | fail: 87 files; the 18 extra are src/generated/ (790 extra problems) | pass: 69 files, same 8 file/line/rule entries, 0 differences | Reference list: Notes |
 | A3 | eslint.config.mjs diff adds only the 3 ignore patterns | git diff | fail: none of the 3 patterns present | pass: diff adds exactly the 3 patterns (3 lines, no comment) | |
-| A4 | codebase-map.md: 0 matches for chat preamble ("I didn't", "you asked") and box-drawing chars `[┌│├└─]` | grep | fail: 1 preamble match, 73 box-drawing lines | | |
-| A5 | Every file or folder path in codebase-map.md exists; 0 missing | script over backticked paths | fail: 2 of 19 paths don't resolve (edit/client.tsx, hooks/review-gate.mjs) | | 0 backticked paths; both files exist under src/app/[event]/edit/ and .claude/hooks/ |
-| A6 | Every page.tsx and route.ts under src/app has a row in the map; 0 missing | script | pass: 13 of 13 | | Weak at baseline: "/" matches any line; After checks route cells |
-| A7 | Each section 6 observation maps to a new F#, an existing F# or "covered by C04"; 0 unmapped | list in Notes | fail: 0 mapped | | |
-| A8 | README: 0 matches for "Next.js 15"; Next.js 16 stated | grep | fail: 2 matches, "Next.js 16" 0 | | |
+| A4 | codebase-map.md: 0 matches for chat preamble ("I didn't", "you asked") and box-drawing chars `[┌│├└─]` | grep | fail: 1 preamble match, 73 box-drawing lines | pass: 0 preamble matches, 0 box-drawing lines | |
+| A5 | Every file or folder path in codebase-map.md exists; 0 missing | script over backticked paths | fail: 2 of 19 paths don't resolve (edit/client.tsx, hooks/review-gate.mjs) | pass: 61 of 61 paths exist, 0 missing | 0 backticked paths; both files exist under src/app/[event]/edit/ and .claude/hooks/. Script over backticked tokens that look like paths; every path is written repo-relative. Non-paths (router.push, User.id, 2 emails) skipped |
+| A6 | Every page.tsx and route.ts under src/app has a row in the map; 0 missing | script | pass: 13 of 13 | pass: 13 of 13 | Weak at baseline: "/" matches any line; After checks route cells. Each page.tsx and route.ts path appears in the Pages and API tables |
+| A7 | Each section 6 observation maps to a new F#, an existing F# or "covered by C04"; 0 unmapped | list in Notes | fail: 0 mapped | pass: 14 of 14 mapped (Notes) | |
+| A8 | README: 0 matches for "Next.js 15"; Next.js 16 stated | grep | fail: 2 matches, "Next.js 16" 0 | pass: 0 matches for "Next.js 15", "Next.js 16" 2 (lines 3, 26) | |
 | A9 | CLAUDE.md lint note: 0 matches for `--ignore-pattern`; names baseline 8 | grep | fail: 1 match | pass: 0 matches; line 61 names baseline 8 | |
-| A10 | findings.md: F10 and F18 marked resolved by C08; F10 says the 3022/3021 part is obsolete | read | fail: F10 and F18 open | | |
-| A11 | Diff touches only eslint.config.mjs, README.md, CLAUDE.md, docs/ | git diff --stat vs portfolio | pass: CLAUDE.md (current change line), docs/ only | | |
-| A12 | `npm run build` exit 0, `npx tsc --noEmit` exit 0 | run | pass: build 0, tsc 0 | pass (S2): build 0, tsc 0 | |
+| A10 | findings.md: F10 and F18 marked resolved by C08; F10 says the 3022/3021 part is obsolete | read | fail: F10 and F18 open | pass: F10 (S2) and F18 say "Resolved by C08"; F10 says the 3022/3021 part is obsolete | |
+| A11 | Diff touches only eslint.config.mjs, README.md, CLAUDE.md, docs/ | git diff --stat vs portfolio | pass: CLAUDE.md (current change line), docs/ only | pass: git diff --stat vs portfolio lists CLAUDE.md, README.md, eslint.config.mjs, docs/ only | |
+| A12 | `npm run build` exit 0, `npx tsc --noEmit` exit 0 | run | pass: build 0, tsc 0 | pass (S3): build 0, tsc 0; lint 8 (5 errors, 3 warnings) | |
 
 ## Plan
 S1: Spec and baseline (this /sdd-start).
@@ -89,3 +89,20 @@ The ignore goes in the config, not the CLI flag, so the single documented comman
 count; rejected: keeping `--ignore-pattern` in CLAUDE.md. The map is rewritten rather than
 patched because the cut-off text can't be recovered. Bugs go to findings.md because the map
 describes the architecture and findings.md is the backlog.
+
+A7 mapping (old codebase-map section 6, verified against the code in S3):
+1. Edit page doesn't check ownership → existing F21
+2. Admins can't reach the edit page from the UI → new F25
+3. Organizer email shown publicly → new F26
+4. Create skips location, city, category → new F27
+5. PUT vs create empty time/description → new F28
+6. Client types id as number → new F29
+7. Uploaded images never deleted → new F30
+8. error.tsx / global-error.tsx, 5 s timeout → covered by C04 (F1)
+9. console.log in WeatherForecast → new F31
+10. public/illustrations.jsx unused and served → new F32
+11. tailwind.config.mjs v3-style → new F33
+12. Lat/lng migration named "init" → new F34
+13. NEXT_PUBLIC_SUPABASE_ANON_KEY unused → new F35
+14. /api/reset token compared with !== → new F36
+Also: Render cron unknown → new F37 (unverified). SERVICE_ROLE_KEY "missing from .env": obsolete, now present. Stale playwright output: closed by C05. Old section 7 (CLAUDE.md/README/ROADMAP mismatches) dropped: CLAUDE.md claims were fixed since, ROADMAP no longer exists, README handled by A8.

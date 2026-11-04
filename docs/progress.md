@@ -13,10 +13,12 @@ Tier: Light. Decisions: none.
 
 - S2: `eslint.config.mjs` ignores `src/generated/**`, `playwright-report/**`, `test-results/**`; CLAUDE.md lint note now says plain `npm run lint`, baseline 8; F10 resolved. A1, A2, A3, A9, A12 After filled, all pass (lint 8: 5 errors, 3 warnings; same 69 files and same 8 entries as the baseline; build 0, tsc 0). A10 waits for F18 in S3.
 - S2: local choices: no comment above the new ignores (CLAUDE.md comment rule, A3 wants only the patterns); older changes' specs keep their `--ignore-pattern` text (history).
+- S3: `docs/codebase-map.md` rewritten from the code (7 sections, plain tables, repo-relative paths, architecture only); section 6 observations mapped in the spec's Notes: new findings F25–F36 (12), F21 and C04 reused, plus F37 (Render cron, unverified); README says Next.js 16 (2 places); F18 resolved; spec.md line 1 heading repaired (S2 review note). A4–A8, A10–A12 After filled, all pass (lint 8, build 0, tsc 0).
+- S3: local choices: old section 7 (CLAUDE.md/README/ROADMAP mismatches) dropped, not mapped; "SERVICE_ROLE_KEY missing from .env" dropped as obsolete (key is present); one table per area; F25–F37 are one line each, no new decisions.
 
 ### Next
 
-- /sdd-step S3 (codebase map, findings, README).
+- /sdd-review S3, then /sdd-validate and /sdd-close.
 
 ## C07: required image or illustration (`docs/changes/07-required-image/`): complete
 
