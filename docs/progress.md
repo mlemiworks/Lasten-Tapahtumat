@@ -1,5 +1,23 @@
 # Progress
 
+## C09: workflow v4, a Quick tier and leaner docs (`docs/changes/09-workflow-v4/`): in progress
+
+Branch: `chore/09-workflow-v4`
+Tier: Light. Decisions: D16 (`docs/decisions.md`).
+
+### Done
+
+- Start: branch from portfolio, spec written. Intake: C08 and D15 were taken, so the change is C09 and the decision D16. Model docs (code.claude.com/docs/en/skills): `model` frontmatter applies to inline skills but only for the current turn. Q1–Q4 took defaults: `model:` in every skill and step 0 removed; D16 says C03–C08 followed v3.x; C01–C06 collapse, C07–C08 stay; S2 follows v4 Light (validation and close in S2).
+- Start: Before filled: A9 and A12 pass (0 change-folder refs in skills; build 0, tsc 0, lint 8); A1–A8, A10, A11 fail (no v4 content yet). No manual criteria.
+
+- S1: `docs/workflow.md` v4 (Quick tier, hard-rules list, targets with the 1.5× rule, results cells, models section), `templates.md`, new `sdd-quick`, `model:` and a summary ending in all 7 skills, step 0 removed, Quick branch in `sdd-review`, CLAUDE.md procedures, D16 appended (approved). A1–A10, A12 After filled in the spec (S2 reruns them); results: build 0, tsc 0, lint 8 (5 errors, 3 warnings), A8 14 rules before, 15 after, none removed, A3 0 unclassified, A10 6 added 0 removed.
+- S1: local choices: Sonnet for quick, step, validate, close; Opus for start, design, review; `sdd-validate` and `sdd-close` marked optional for Light.
+- S1 review notes fixed: A3 count 12 matches (10 targets), sdd-review reads Quick ids (F<n>, Q-<slug>), Light approval says "plus any decision", A2 line ref corrected.
+
+### Next
+
+- /sdd-review S1, then /sdd-step S2 (living docs and close).
+
 ## C08: lint ignores, codebase map rewrite, README version (`docs/changes/08-docs-lint-cleanup/`): complete
 
 Branch: `chore/08-docs-lint-cleanup`

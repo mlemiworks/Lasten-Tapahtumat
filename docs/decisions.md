@@ -35,3 +35,9 @@ D13: /sdd-review approves when no failed check is blocking; minor issues become 
      Why: three C03 rejections were for a glued line, a stale stat and a miscount; full re-review rounds cost more than they caught.
      Trade-off: minor errors can land in a commit; they are fixed in the next commit or logged in progress.md.
      Affects: .claude/skills/sdd-review/SKILL.md; every future review.
+
+D16: Adopt workflow v4: a Quick tier, sizes and counts as targets, leaner docs.
+     Supersedes: workflow v3.1 hard size and criteria limits; guide v2 "at most = hard limit".
+     Why: the process cost the same for a one-line fix as for a docs change, and v3 limits produced trimming work with no value. C01-C02 followed guide v2, C03-C08 v3.x; v4 applies from C09.
+     Trade-off: targets can be overrun without a trigger; the hard-rule list and the 1.5x summary rule are the only brake.
+     Affects: docs/workflow.md, templates.md, all skills (model frontmatter, no step 0, summaries, sdd-quick), CLAUDE.md, progress.md, findings.md, open-questions.md (S2).

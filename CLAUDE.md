@@ -6,8 +6,8 @@ Guidance for Claude Code when working in this repository (Lasten tapahtumat, a N
 
 All in `docs/` (see decisions D5, D11, D12):
 
-- `docs/workflow.md`: the method: phases, skills, commit gate, rigor tiers, criteria format, decision threshold, naming.
-- `docs/changes/<NN-slug>/`: spec.md (and design.md and plan.md when present) and decisions.md for one change. **The current change is: none.**
+- `docs/workflow.md` (v4): the method: phases, skills, commit gate, rigor tiers (Quick, Light, Standard, Heavy), hard rules vs targets, criteria format, decision threshold, naming.
+- `docs/changes/<NN-slug>/`: spec.md (and design.md and plan.md when present) and decisions.md for one change. **The current change is: C09 (`docs/changes/09-workflow-v4/`).**
 - Decision logs (D10). IDs are one sequence across all files: check every decisions.md for the next free number. Append only; mark superseded entries, never delete them.
   - `docs/decisions.md`: project-wide decisions (D1, D5, D10, ...).
   - `docs/changes/<NN-slug>/decisions.md`: decisions for that change only (C01: `docs/changes/01-security-patch/decisions.md`, D2–D4, D6–D9).
@@ -17,7 +17,7 @@ All in `docs/` (see decisions D5, D11, D12):
 - `docs/findings.md`: backlog of known issues. Do **not** fix these unless the current change's spec includes them.
 - `docs/open-questions.md`
 
-Procedures are project skills in `.claude/skills/`, invoked only by me: `/sdd-start`, `/sdd-design`, `/sdd-step`, `/sdd-review`, `/sdd-validate`, `/sdd-close`. Templates, including the review packet: `.claude/skills/sdd-start/templates.md`.
+Procedures are project skills in `.claude/skills/`, invoked only by me: `/sdd-quick` (Quick tier: one small finding, no change folder), `/sdd-start`, `/sdd-design`, `/sdd-step`, `/sdd-review`, `/sdd-validate`, `/sdd-close`. Each sets its own `model:` and ends with a summary for me (target 5 lines). Light changes validate and close inside the last step's commit. Templates, including the Quick commit message and the review packet: `.claude/skills/sdd-start/templates.md`.
 
 ID prefixes: C change, D decision (global), F finding, Q open question, A criterion and S step (A and S are local to a change; outside it write C01-A3).
 
@@ -31,7 +31,8 @@ open-questions = something only a person can answer
 
 - Never edit an existing migration file; add a new one.
 - Sessions start in `eventsforkids/` (the repo root). From the parent folder, the skills and the commit gate don't load.
-- Follow the current change's plan step by step; stay within each step's Do and Don't.
+- Follow the current change's plan step by step; stay within each step's Do and Don't. A Quick fix (`/sdd-quick`) has no plan: stay within the finding.
+- Sizes and counts in the workflow are targets; the hard rules listed in `docs/workflow.md` (Hard rules and targets) are not.
 - Don't modify code outside the current step's scope. Don't "clean up" unrelated code, even if it looks wrong. Note it for findings.md instead.
 - Small, local choices within the current step (naming, formatting, internal structure): decide, and state the choice in your summary. Don't ask about choices with a sensible default (also in skill questions); ask only when scope, a criterion, a must-not-change item, the tier or the approach is at stake.
 - Anything that would deviate from the plan, touch a Don't item, change a must-not-change item, or require changing the spec or design: **stop and ask**. Documents change first, code follows; spec, design and plan edits apply only after I approve them.
