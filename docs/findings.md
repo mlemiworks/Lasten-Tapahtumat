@@ -20,6 +20,7 @@
 
 - F10: ESLint lints non-source folders (generated Prisma client, probably .next/, test reports, public/illustrations.jsx). Measure per folder and add ignores to eslint.config.mjs.
   Also identify the one extra warning that appeared after the next/eslint-config-next 16.3.8 upgrade (3022 vs the 3021 baseline). Accepted for Change 01 by D9 (`docs/changes/01-security-patch/decisions.md`); compare `eslint -f json` output per file against 16.0.8 on `portfolio`.
+  Resolved by C08: `src/generated/**`, `playwright-report/**` and `test-results/**` are ignored in eslint.config.mjs (only src/generated/ produced problems: 790 of 798). The 3022 vs 3021 part is obsolete: those counts came mostly from a stale playwright-report/ (C05-S2) and lint is now 8.
 
 - F11: if reset token for both prod and dev is same, leaked dev token may be used to reset prod. Resolved by C05 (dev token differs from production's; live POST with the dev token returns 401, A12).
 

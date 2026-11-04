@@ -1,5 +1,23 @@
 # Progress
 
+## C08: lint ignores, codebase map rewrite, README version (`docs/changes/08-docs-lint-cleanup/`): in progress
+
+Branch: `chore/08-docs-lint-cleanup`
+Tier: Light. Decisions: none.
+
+### Done
+
+- S1: branch from portfolio, spec written (F10, F18). Intake: Q1 F10's 3022/3021 part dropped as obsolete; Q2 codebase-map section 6 observations move to findings.md as new F#; Q3 README "Next.js 15" fix in. Ignore list (src/generated, playwright-report, test-results) and table format are defaults.
+- S1: Before filled: A1–A5, A7–A10 fail (lint 798, map has preamble and 73 box-drawing lines, README says Next.js 15); A6, A11, A12 pass (build 0, tsc 0). Only src/generated/ adds lint problems today; the 8 reference problems are listed in the spec's Notes for A2. No manual criteria.
+- S1: A5 checked bare paths (the map has no backticked ones); A6's baseline grep is weak because "/" matches any line, so After checks the route cells.
+
+- S2: `eslint.config.mjs` ignores `src/generated/**`, `playwright-report/**`, `test-results/**`; CLAUDE.md lint note now says plain `npm run lint`, baseline 8; F10 resolved. A1, A2, A3, A9, A12 After filled, all pass (lint 8: 5 errors, 3 warnings; same 69 files and same 8 entries as the baseline; build 0, tsc 0). A10 waits for F18 in S3.
+- S2: local choices: no comment above the new ignores (CLAUDE.md comment rule, A3 wants only the patterns); older changes' specs keep their `--ignore-pattern` text (history).
+
+### Next
+
+- /sdd-step S3 (codebase map, findings, README).
+
 ## C07: required image or illustration (`docs/changes/07-required-image/`): complete
 
 Branch: `feat/07-required-image`

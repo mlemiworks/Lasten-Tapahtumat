@@ -7,7 +7,7 @@ Guidance for Claude Code when working in this repository (Lasten tapahtumat, a N
 All in `docs/` (see decisions D5, D11, D12):
 
 - `docs/workflow.md`: the method: phases, skills, commit gate, rigor tiers, criteria format, decision threshold, naming.
-- `docs/changes/<NN-slug>/`: spec.md (and design.md and plan.md when present) and decisions.md for one change. **The current change is: none.**
+- `docs/changes/<NN-slug>/`: spec.md (and design.md and plan.md when present) and decisions.md for one change. **The current change is: C08 (`docs/changes/08-docs-lint-cleanup/`).**
 - Decision logs (D10). IDs are one sequence across all files: check every decisions.md for the next free number. Append only; mark superseded entries, never delete them.
   - `docs/decisions.md`: project-wide decisions (D1, D5, D10, ...).
   - `docs/changes/<NN-slug>/decisions.md`: decisions for that change only (C01: `docs/changes/01-security-patch/decisions.md`, D2–D4, D6–D9).
@@ -58,7 +58,7 @@ npx prisma db seed          # Seed the database in .env
 npm run test:e2e            # Playwright suite on port 3100; WIPES AND RESEEDS the dev database
 ```
 
-- **Lint:** the config currently also lints non-source folders. To compare with the baseline, use `npx eslint . --ignore-pattern "src/generated/**"` (baseline: see the current change's spec).
+- **Lint:** `npm run lint` ignores git-ignored generated output (`src/generated`, `playwright-report`, `test-results`). Baseline since C08: 8 problems (5 errors, 3 warnings), all in `src/`.
 - **Do not use `npm run dev:prod`**. It connects the local app to the **production** database.
 - **`npm start` / `next start` also loads `.env.production.local`** over `.env`, so a local production build talks to the production database. Pass `DATABASE_URL` (and `RESET_TOKEN`) from `.env` explicitly (F20).
 - New migrations: `npx prisma migrate dev --name <description>`, only when a plan step says so.
